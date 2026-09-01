@@ -45,7 +45,7 @@ export function FooterWordmark() {
           {/* soft tonal bloom behind the mark */}
           <span
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[70%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-2xl"
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[120%] w-[110%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-70 blur-3xl"
             style={{
               background:
                 "radial-gradient(60% 60% at 50% 50%, color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 72%)",
@@ -53,7 +53,7 @@ export function FooterWordmark() {
           />
 
           {/* one intentional lockup: two lines on small screens, one on lg+ */}
-          <span className="flex flex-col items-center gap-[0.12em] leading-[0.92] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-[0.28em]">
+          <span className="flex flex-col items-center gap-1 leading-[0.92] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-[clamp(0.6rem,1.5vw,1.7rem)]">
             <span
               className="block text-[clamp(2.35rem,13vw,4.25rem)] tracking-[-0.035em] transition-opacity duration-[650ms] ease-out lg:text-[clamp(3.5rem,7.4vw,6.5rem)]"
               style={{ opacity: hover ? 1 : 0.94 }}
