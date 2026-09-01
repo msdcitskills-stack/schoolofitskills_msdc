@@ -45,10 +45,10 @@ export function FooterWordmark() {
           {/* soft tonal bloom behind the mark */}
           <span
             aria-hidden
-            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[120%] w-[110%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-70 blur-3xl"
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[150%] w-[125%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] opacity-50 blur-3xl"
             style={{
               background:
-                "radial-gradient(60% 60% at 50% 50%, color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 72%)",
+                "radial-gradient(60% 60% at 50% 50%, color-mix(in oklab, var(--color-primary) 12%, transparent), transparent 78%)",
             }}
           />
 
