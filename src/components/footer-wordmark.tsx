@@ -1,63 +1,126 @@
 import { useRef, useState } from "react";
 
+/**
+ * Institutional brand lockup for the footer.
+ *
+ * Typography does the work: one unified wordmark with a restrained internal
+ * hierarchy (SCHOOL / of / IT SKILLS), an institutional signature line beneath,
+ * and a single slow light sweep on hover.
+ */
 export function FooterWordmark() {
   const ref = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ x: 50, y: 50 });
-  const [active, setActive] = useState(false);
-
-  const onMove = (e: React.MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    setPos({
-      x: ((e.clientX - r.left) / r.width) * 100,
-      y: ((e.clientY - r.top) / r.height) * 100,
-    });
-  };
-
-  const text = "SCHOOL OF IT SKILLS";
+  const [hover, setHover] = useState(false);
 
   return (
-    <div
-      ref={ref}
-      onMouseMove={onMove}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
-      className="group relative mx-auto mt-14 w-full max-w-7xl select-none overflow-hidden px-6"
-      aria-hidden
+    <section
+      aria-label="School of IT Skills — Manipal Skill Development Centre"
+      className="relative isolate overflow-hidden"
     >
-      <div className="relative">
-        {/* base ghost text */}
-        <span className="block whitespace-nowrap text-center font-semibold leading-[0.9] tracking-[-0.04em] text-foreground/[0.06] transition-colors duration-500 group-hover:text-foreground/[0.09] text-[clamp(1.75rem,8.2vw,9rem)]">
-          {text}
-        </span>
+      {/* ambient institutional lighting — barely visible, calm */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(120% 90% at 50% 118%, color-mix(in oklab, var(--color-primary) 9%, transparent) 0%, transparent 62%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, transparent, color-mix(in oklab, var(--color-border) 90%, transparent) 18%, color-mix(in oklab, var(--color-foreground) 14%, transparent) 50%, color-mix(in oklab, var(--color-border) 90%, transparent) 82%, transparent)",
+        }}
+      />
 
-        {/* glowing spotlight layer */}
-        <span
-          className="pointer-events-none absolute inset-0 block whitespace-nowrap text-center font-semibold leading-[0.9] tracking-[-0.04em] text-primary text-[clamp(1.75rem,8.2vw,9rem)] transition-opacity duration-500"
-          style={{
-            opacity: active ? 1 : 0,
-            WebkitMaskImage: `radial-gradient(22rem 22rem at ${pos.x}% ${pos.y}%, black 0%, rgba(0,0,0,0.55) 35%, transparent 68%)`,
-            maskImage: `radial-gradient(22rem 22rem at ${pos.x}% ${pos.y}%, black 0%, rgba(0,0,0,0.55) 35%, transparent 68%)`,
-            textShadow:
-              "0 0 24px color-mix(in oklab, var(--color-primary) 55%, transparent), 0 0 70px color-mix(in oklab, var(--color-glow, var(--color-primary)) 40%, transparent)",
-          }}
-        >
-          {text}
-        </span>
+      <div
+        ref={ref}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        className="mx-auto flex w-full max-w-7xl flex-col items-center page-x pb-[clamp(2.5rem,4vw,4.5rem)] pt-[clamp(3.5rem,7vw,7rem)]"
+      >
+        {/* ── Wordmark ───────────────────────────────────────────────── */}
+        <h2 className="relative select-none text-center font-display font-semibold text-foreground/85">
+          {/* soft tonal bloom behind the mark */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[70%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-2xl"
+            style={{
+              background:
+                "radial-gradient(60% 60% at 50% 50%, color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 72%)",
+            }}
+          />
 
-        {/* soft ambient bloom following cursor */}
-        <span
-          className="pointer-events-none absolute inset-0 transition-opacity duration-500"
-          style={{
-            opacity: active ? 0.5 : 0,
-            background: `radial-gradient(16rem 10rem at ${pos.x}% ${pos.y}%, color-mix(in oklab, var(--color-primary) 22%, transparent), transparent 70%)`,
-          }}
-        />
+          {/* one intentional lockup: two lines on small screens, one on lg+ */}
+          <span className="flex flex-col items-center gap-[0.12em] leading-[0.92] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-[0.28em]">
+            <span
+              className="block text-[clamp(2.35rem,13vw,4.25rem)] tracking-[-0.035em] transition-opacity duration-[650ms] ease-out lg:text-[clamp(3.5rem,7.4vw,6.5rem)]"
+              style={{ opacity: hover ? 1 : 0.94 }}
+            >
+              SCHOOL
+            </span>
+            <span
+              className="hidden font-normal text-[clamp(2.35rem,13vw,4.25rem)] tracking-[-0.01em] text-foreground/45 transition-[opacity,color] duration-[650ms] ease-out sm:inline-block lg:text-[clamp(3.5rem,7.4vw,6.5rem)]"
+              style={{ opacity: hover ? 0.75 : 0.5 }}
+            >
+              of
+            </span>
+            <span
+              className="block text-[clamp(2.35rem,13vw,4.25rem)] tracking-[-0.035em] transition-opacity duration-[650ms] ease-out lg:text-[clamp(3.5rem,7.4vw,6.5rem)]"
+              style={{ opacity: hover ? 1 : 0.94 }}
+            >
+              <span className="sm:hidden font-normal text-foreground/45">of </span>
+              IT SKILLS
+            </span>
+          </span>
+
+          {/* slow light sweep — masked to the wordmark's own box */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 overflow-hidden motion-reduce:hidden"
+          >
+            <span
+              className="absolute inset-y-0 w-1/3 transition-transform duration-[800ms] ease-out"
+              style={{
+                transform: `translateX(${hover ? "340%" : "-140%"})`,
+                background:
+                  "linear-gradient(100deg, transparent, color-mix(in oklab, var(--color-primary) 22%, transparent), transparent)",
+                filter: "blur(18px)",
+              }}
+            />
+          </span>
+        </h2>
+
+        {/* ── Institutional signature ────────────────────────────────── */}
+        <div className="mt-[clamp(1.75rem,3.2vw,3rem)] flex w-full max-w-xl items-center justify-center gap-[clamp(0.75rem,2vw,1.5rem)]">
+          <span
+            aria-hidden
+            className="h-px flex-1 max-w-[6rem]"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, color-mix(in oklab, var(--color-foreground) 20%, transparent))",
+            }}
+          />
+          <p
+            className="text-center font-mono text-[clamp(0.58rem,1.6vw,0.72rem)] font-medium uppercase leading-[1.5] tracking-[0.32em] text-muted-foreground/75 transition-colors duration-[650ms] ease-out"
+            style={{ color: hover ? "var(--color-muted-foreground)" : undefined }}
+          >
+            Manipal Skill
+            <br className="sm:hidden" />
+            <span className="hidden sm:inline"> </span>
+            Development Centre
+          </p>
+          <span
+            aria-hidden
+            className="h-px flex-1 max-w-[6rem]"
+            style={{
+              background:
+                "linear-gradient(90deg, color-mix(in oklab, var(--color-foreground) 20%, transparent), transparent)",
+            }}
+          />
+        </div>
       </div>
-      <div className="mt-3 text-center text-[0.7rem] uppercase tracking-[0.35em] text-muted-foreground/70 transition-colors duration-500 group-hover:text-muted-foreground">
-        Manipal Skill Development Centre
-      </div>
-    </div>
+    </section>
   );
 }
