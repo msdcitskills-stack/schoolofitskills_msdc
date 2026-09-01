@@ -53,7 +53,10 @@ export function FooterWordmark() {
           />
 
           {/* one intentional lockup: two lines on small screens, one on lg+ */}
-          <span className="flex flex-col items-center gap-1 leading-[0.92] sm:flex-row sm:flex-wrap sm:justify-center sm:gap-[clamp(0.6rem,1.5vw,1.7rem)]">
+          <span
+            className="flex flex-col items-center leading-[0.92] sm:flex-row sm:flex-wrap sm:justify-center"
+            style={{ gap: "clamp(0.35rem, 1.4vw, 1.6rem)" }}
+          >
             <span
               className="block text-[clamp(2.35rem,13vw,4.25rem)] tracking-[-0.035em] transition-opacity duration-[650ms] ease-out lg:text-[clamp(3.5rem,7.4vw,6.5rem)]"
               style={{ opacity: hover ? 1 : 0.94 }}
