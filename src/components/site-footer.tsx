@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Mail, Phone } from "lucide-react";
 import soisLogo from "@/assets/sois-logo.png.asset.json";
 import msdcLogo from "@/assets/msdc-logo.png.asset.json";
+import { FooterWordmark } from "@/components/footer-wordmark";
+
 
 export function SiteFooter() {
   return (
