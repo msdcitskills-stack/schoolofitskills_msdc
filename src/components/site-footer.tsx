@@ -2,6 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Mail, Phone } from "lucide-react";
 import soisLogo from "@/assets/sois-logo.png.asset.json";
 import msdcLogo from "@/assets/msdc-logo.png.asset.json";
+import { FooterWordmark } from "@/components/footer-wordmark";
+
 
 export function SiteFooter() {
   return (
@@ -63,7 +65,9 @@ export function SiteFooter() {
           </ul>
         </div>
       </div>
+      <FooterWordmark />
       <div className="mx-auto mt-10 flex max-w-7xl flex-col items-start justify-between gap-2 border-t border-border/60 px-6 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center">
+
         <div>© {new Date().getFullYear()} School of IT Skills · Manipal Skill Development Centre</div>
         <div>Empowering future generations with cutting-edge IT education.</div>
       </div>
