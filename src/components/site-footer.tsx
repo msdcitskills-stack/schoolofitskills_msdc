@@ -62,6 +62,16 @@ export function SiteFooter() {
                 <Phone className="h-3.5 w-3.5" /> +91 91879 74688
               </a>
             </li>
+            <li>
+              <a
+                href="https://www.manylinks.io/schoolofitskills"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary"
+              >
+                All Social links page
+              </a>
+            </li>
           </ul>
         </div>
       </div>
