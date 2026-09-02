@@ -7,7 +7,7 @@ import { FooterWordmark } from "@/components/footer-wordmark";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-24 border-t border-border bg-surface pb-32 pt-16 text-surface-foreground">
+    <footer className="mt-24 border-t border-border bg-surface pb-0 pt-16 text-surface-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 md:grid-cols-4">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
