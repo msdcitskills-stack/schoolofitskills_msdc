@@ -60,7 +60,7 @@ export function FooterWordmark() {
             style={{ gap: "clamp(0.35rem, 2.4vw, 2.9rem)" }}
           >
             <span
-              className="block text-[clamp(2.35rem,13vw,4.25rem)] tracking-[-0.035em] transition-opacity duration-[650ms] ease-out lg:text-[clamp(3.5rem,7.4vw,6.5rem)]"
+              className="text-live block text-[clamp(2.35rem,13vw,4.25rem)] tracking-[-0.035em] transition-opacity duration-[650ms] ease-out lg:text-[clamp(3.5rem,7.4vw,6.5rem)]"
               style={{ opacity: hover ? 1 : 0.94 }}
             >
               SCHOOL
@@ -72,7 +72,7 @@ export function FooterWordmark() {
               of
             </span>
             <span
-              className="block text-[clamp(2.35rem,13vw,4.25rem)] tracking-[-0.035em] transition-opacity duration-[650ms] ease-out lg:text-[clamp(3.5rem,7.4vw,6.5rem)]"
+              className="text-live block text-[clamp(2.35rem,13vw,4.25rem)] tracking-[-0.035em] transition-opacity duration-[650ms] ease-out lg:text-[clamp(3.5rem,7.4vw,6.5rem)]"
               style={{ opacity: hover ? 1 : 0.94 }}
             >
               <span className="sm:hidden font-normal text-foreground/45">of </span>
