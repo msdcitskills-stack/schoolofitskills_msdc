@@ -38,10 +38,12 @@ export function FooterWordmark() {
         ref={ref}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        className="mx-auto flex w-full max-w-7xl flex-col items-center page-x pb-[clamp(1.75rem,2.6vw,2.75rem)] pt-[clamp(3.5rem,7vw,7rem)]"
+        className="mx-auto w-full max-w-7xl page-x pb-[clamp(1rem,1.6vw,1.75rem)] pt-[clamp(2.25rem,5vw,4.5rem)]"
       >
+      <div className="moving-border relative mx-auto flex w-full flex-col items-center rounded-[clamp(1.25rem,2.5vw,2rem)] px-[clamp(1rem,3vw,3rem)] pb-[clamp(1.5rem,2.4vw,2.25rem)] pt-[clamp(2rem,4.5vw,3.5rem)]">
         {/* ── Wordmark ───────────────────────────────────────────────── */}
         <h2 className="relative select-none text-center font-display font-semibold text-foreground/85">
+
           {/* soft tonal bloom behind the mark */}
           <span
             aria-hidden
