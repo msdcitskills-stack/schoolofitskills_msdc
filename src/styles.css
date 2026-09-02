@@ -515,3 +515,73 @@
 @utility measure {
   max-width: 62ch;
 }
+
+/* ── Footer moving border + live text shimmer ─────────────────── */
+@property --mb-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes mb-rotate {
+  to { --mb-angle: 360deg; }
+}
+
+@utility moving-border {
+  position: relative;
+  isolation: isolate;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: conic-gradient(
+      from var(--mb-angle) at 50% 50%,
+      transparent 0deg,
+      color-mix(in oklab, var(--color-primary) 85%, transparent) 40deg,
+      color-mix(in oklab, var(--color-glow, var(--color-primary)) 90%, transparent) 70deg,
+      transparent 130deg,
+      transparent 220deg,
+      color-mix(in oklab, var(--color-primary) 60%, transparent) 265deg,
+      transparent 330deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation: mb-rotate 7s linear infinite;
+    pointer-events: none;
+  }
+  &::after {
+    filter: blur(9px);
+    opacity: 0.55;
+    z-index: -1;
+  }
+}
+
+@keyframes text-live {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@utility text-live {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in oklab, var(--color-foreground) 82%, transparent) 0%,
+    color-mix(in oklab, var(--color-foreground) 82%, transparent) 35%,
+    color-mix(in oklab, var(--color-primary) 92%, var(--color-foreground)) 50%,
+    color-mix(in oklab, var(--color-foreground) 82%, transparent) 65%,
+    color-mix(in oklab, var(--color-foreground) 82%, transparent) 100%
+  );
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-live 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moving-border::before,
+  .moving-border::after,
+  .text-live { animation: none; }
+}
