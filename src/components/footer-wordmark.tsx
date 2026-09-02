@@ -38,7 +38,7 @@ export function FooterWordmark() {
         ref={ref}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        className="mx-auto flex w-full max-w-7xl flex-col items-center page-x pb-[clamp(2.5rem,4vw,4.5rem)] pt-[clamp(3.5rem,7vw,7rem)]"
+        className="mx-auto flex w-full max-w-7xl flex-col items-center page-x pb-[clamp(1.25rem,2vw,2rem)] pt-[clamp(3.5rem,7vw,7rem)]"
       >
         {/* ── Wordmark ───────────────────────────────────────────────── */}
         <h2 className="relative select-none text-center font-display font-semibold text-foreground/85">
