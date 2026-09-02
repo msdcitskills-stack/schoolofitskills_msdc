@@ -106,7 +106,7 @@ function Home() {
               <div
                 onMouseEnter={() => setLogoHovered(true)}
                 onMouseLeave={() => setLogoHovered(false)}
-                className="glass corner-glow group relative overflow-hidden rounded-[2rem] p-8 shadow-2xl animate-float"
+                className="glass corner-glow moving-border group relative overflow-hidden rounded-[2rem] p-8 shadow-2xl animate-float"
               >
                 <div
                   className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
