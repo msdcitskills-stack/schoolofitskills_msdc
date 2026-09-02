@@ -126,6 +126,8 @@ export function FooterWordmark() {
           />
         </div>
       </div>
+      </div>
+
     </section>
   );
 }
