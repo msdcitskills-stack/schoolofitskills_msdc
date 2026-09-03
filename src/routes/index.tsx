@@ -109,6 +109,21 @@ function Home() {
                 onMouseLeave={() => setLogoHovered(false)}
                 className="glass corner-glow group relative overflow-hidden rounded-[2rem] p-8 shadow-2xl animate-float"
               >
+                {/* multi-hue aurora wash inside the card */}
+                <div className="aurora-mesh transition-opacity duration-700 group-hover:opacity-80" aria-hidden />
+                {/* inner hairline with a colour-shifting sheen */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-[3px] rounded-[1.85rem]"
+                  style={{
+                    padding: "1px",
+                    background:
+                      "linear-gradient(140deg, color-mix(in oklab, var(--color-primary) 60%, transparent), color-mix(in oklab, oklch(0.8 0.14 210) 45%, transparent) 40%, transparent 62%, color-mix(in oklab, oklch(0.74 0.17 320) 40%, transparent))",
+                    WebkitMask:
+                      "linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)",
+                    mask: "linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0)",
+                  }}
+                />
 
                 <div
                   className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
