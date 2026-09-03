@@ -132,6 +132,8 @@ function Home() {
                   <img src={msdcLogo.url} alt="MSDC" className="h-8 w-auto" />
                 </div>
               </div>
+              </div>
+
               <div className="pointer-events-none absolute -inset-8 -z-10 rounded-[3rem] bg-primary/20 blur-3xl" />
             </Parallax>
 
