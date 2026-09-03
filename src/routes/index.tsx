@@ -103,7 +103,7 @@ function Home() {
               </div>
             </div>
             <Parallax className="relative lg:-mt-72" strength={54}>
-              <Card3D className="moving-border-outer relative rounded-[2.6rem]" intensity={10}>
+              <Card3D className="moving-border-outer relative rounded-[2.6rem]" intensity={22}>
               <div
                 onMouseEnter={() => setLogoHovered(true)}
                 onMouseLeave={() => setLogoHovered(false)}
@@ -144,14 +144,14 @@ function Home() {
                       "radial-gradient(420px circle at var(--mx,50%) var(--my,50%), color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 70%)",
                   }}
                 />
-                <Card3DItem z={70}>
+                <Card3DItem z={150}>
                   <img
                     src={soisLogo.url}
                     alt="School of IT Skills"
-                    className="relative mx-auto h-64 w-64 rounded-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="relative mx-auto h-64 w-64 rounded-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.06]"
                   />
                 </Card3DItem>
-                <Card3DItem z={40}>
+                <Card3DItem z={90}>
                   <div className="relative mt-6 flex items-center justify-center gap-3 border-t border-border/60 pt-6">
                     <span className="eyebrow text-muted-foreground">
                       A School of
