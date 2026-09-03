@@ -560,10 +560,15 @@
 }
 
 /* Outer rotating frame — sits *outside* the card it wraps.
-   Use on a wrapper element with its own radius. */
+   Multi-hue aurora light: theme primary blended with amber, rose,
+   violet and cyan so the travelling light shifts colour as it orbits. */
 @utility moving-border-outer {
   position: relative;
   isolation: isolate;
+  --mb-a: color-mix(in oklab, var(--color-primary) 85%, oklch(0.86 0.17 85));
+  --mb-b: color-mix(in oklab, var(--color-primary) 45%, oklch(0.74 0.19 12));
+  --mb-c: color-mix(in oklab, var(--color-primary) 40%, oklch(0.66 0.2 300));
+  --mb-d: color-mix(in oklab, var(--color-primary) 45%, oklch(0.78 0.15 210));
   &::before,
   &::after {
     content: "";
@@ -574,12 +579,14 @@
     background: conic-gradient(
       from var(--mb-angle) at 50% 50%,
       transparent 0deg,
-      color-mix(in oklab, var(--color-primary) 90%, transparent) 34deg,
-      color-mix(in oklab, var(--color-glow, var(--color-primary)) 95%, transparent) 62deg,
-      transparent 120deg,
-      transparent 200deg,
-      color-mix(in oklab, var(--color-primary) 55%, transparent) 250deg,
-      transparent 320deg
+      color-mix(in oklab, var(--mb-a) 92%, transparent) 26deg,
+      color-mix(in oklab, var(--mb-b) 88%, transparent) 62deg,
+      transparent 118deg,
+      color-mix(in oklab, var(--mb-c) 80%, transparent) 168deg,
+      transparent 214deg,
+      color-mix(in oklab, var(--mb-d) 85%, transparent) 262deg,
+      color-mix(in oklab, var(--mb-a) 70%, transparent) 300deg,
+      transparent 338deg
     );
     -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
     mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
@@ -587,11 +594,19 @@
     pointer-events: none;
   }
   &::after {
-    filter: blur(14px);
-    opacity: 0.5;
+    inset: -14px;
+    filter: blur(20px) saturate(1.35);
+    opacity: 0.55;
     z-index: -1;
+    animation: mb-rotate 9s linear infinite, mb-hue 16s ease-in-out infinite;
   }
 }
+
+@keyframes mb-hue {
+  0%, 100% { filter: blur(20px) saturate(1.3) hue-rotate(0deg); }
+  50% { filter: blur(24px) saturate(1.5) hue-rotate(28deg); }
+}
+
 
 
 @keyframes text-live {
