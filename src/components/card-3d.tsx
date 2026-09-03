@@ -31,7 +31,8 @@ export function Card3D({
     const el = ref.current;
     if (!el) return;
     const { x, y } = next.current;
-    el.style.transform = `rotateY(${x * intensity}deg) rotateX(${-y * intensity}deg) scale(1.02)`;
+    el.style.transform = `rotateY(${x * intensity}deg) rotateX(${-y * intensity}deg) translateZ(40px) scale(1.05)`;
+    el.style.boxShadow = `${-x * 60}px ${-y * 60 + 30}px 70px -30px rgba(0,0,0,0.45)`;
     el.style.setProperty("--mx", `${(x + 0.5) * 100}%`);
     el.style.setProperty("--my", `${(y + 0.5) * 100}%`);
   };
@@ -54,11 +55,14 @@ export function Card3D({
       cancelAnimationFrame(frame.current);
       frame.current = 0;
     }
-    if (ref.current) ref.current.style.transform = "rotateY(0deg) rotateX(0deg) scale(1)";
+    if (ref.current) {
+      ref.current.style.transform = "rotateY(0deg) rotateX(0deg) translateZ(0px) scale(1)";
+      ref.current.style.boxShadow = "none";
+    }
   };
 
   return (
-    <div className={`[perspective:1200px] ${className}`}>
+    <div className={`[perspective:800px] ${className}`}>
       <Card3DContext.Provider value={hovered}>
         <div
           ref={ref}
