@@ -618,5 +618,8 @@
 @media (prefers-reduced-motion: reduce) {
   .moving-border::before,
   .moving-border::after,
+  .moving-border-outer::before,
+  .moving-border-outer::after,
   .text-live { animation: none; }
+
 }
