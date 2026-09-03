@@ -103,11 +103,13 @@ function Home() {
               </div>
             </div>
             <Parallax className="relative lg:-mt-72" strength={54}>
+              <div className="moving-border-outer relative rounded-[2.6rem]">
               <div
                 onMouseEnter={() => setLogoHovered(true)}
                 onMouseLeave={() => setLogoHovered(false)}
-                className="glass corner-glow moving-border group relative overflow-hidden rounded-[2rem] p-8 shadow-2xl animate-float"
+                className="glass corner-glow group relative overflow-hidden rounded-[2rem] p-8 shadow-2xl animate-float"
               >
+
                 <div
                   className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                   aria-hidden
