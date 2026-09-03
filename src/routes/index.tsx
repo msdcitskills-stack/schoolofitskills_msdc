@@ -103,11 +103,11 @@ function Home() {
               </div>
             </div>
             <Parallax className="relative lg:-mt-72" strength={54}>
-              <div className="moving-border-outer relative rounded-[2.6rem]">
+              <Card3D className="moving-border-outer relative rounded-[2.6rem]" intensity={10}>
               <div
                 onMouseEnter={() => setLogoHovered(true)}
                 onMouseLeave={() => setLogoHovered(false)}
-                className="glass corner-glow group relative overflow-hidden rounded-[2rem] p-8 shadow-2xl animate-float"
+                className="glass corner-glow group relative overflow-hidden rounded-[2rem] p-8 shadow-2xl animate-float [transform-style:preserve-3d]"
               >
                 {/* multi-hue aurora wash inside the card */}
                 <div className="aurora-mesh transition-opacity duration-700 group-hover:opacity-80" aria-hidden />
@@ -135,19 +135,33 @@ function Home() {
                 >
                   {logoHovered && <CanvasRevealEffect gap={11} dotSize={1.5} />}
                 </div>
-                <img
-                  src={soisLogo.url}
-                  alt="School of IT Skills"
-                  className="relative mx-auto h-64 w-64 rounded-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.03]"
+                {/* cursor-following light */}
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  aria-hidden
+                  style={{
+                    background:
+                      "radial-gradient(420px circle at var(--mx,50%) var(--my,50%), color-mix(in oklab, var(--color-primary) 16%, transparent), transparent 70%)",
+                  }}
                 />
-                <div className="relative mt-6 flex items-center justify-center gap-3 border-t border-border/60 pt-6">
-                  <span className="eyebrow text-muted-foreground">
-                    A School of
-                  </span>
-                  <img src={msdcLogo.url} alt="MSDC" className="h-8 w-auto" />
-                </div>
+                <Card3DItem z={70}>
+                  <img
+                    src={soisLogo.url}
+                    alt="School of IT Skills"
+                    className="relative mx-auto h-64 w-64 rounded-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </Card3DItem>
+                <Card3DItem z={40}>
+                  <div className="relative mt-6 flex items-center justify-center gap-3 border-t border-border/60 pt-6">
+                    <span className="eyebrow text-muted-foreground">
+                      A School of
+                    </span>
+                    <img src={msdcLogo.url} alt="MSDC" className="h-8 w-auto" />
+                  </div>
+                </Card3DItem>
               </div>
-              </div>
+              </Card3D>
+
 
               <div className="pointer-events-none absolute -inset-8 -z-10 rounded-[3rem] bg-primary/20 blur-3xl" />
             </Parallax>
