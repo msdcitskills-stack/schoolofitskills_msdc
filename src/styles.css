@@ -607,6 +607,33 @@
   50% { filter: blur(24px) saturate(1.5) hue-rotate(28deg); }
 }
 
+/* Soft multi-hue aurora wash for the inside of a card. */
+@keyframes aurora-drift {
+  0%,
+  100% { transform: translate3d(-3%, -2%, 0) scale(1.05); }
+  33% { transform: translate3d(4%, 3%, 0) scale(1.12); }
+  66% { transform: translate3d(-2%, 4%, 0) scale(1.08); }
+}
+
+@utility aurora-mesh {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  opacity: 0.55;
+  filter: blur(34px) saturate(1.15);
+  background:
+    radial-gradient(30% 34% at 22% 26%, color-mix(in oklab, var(--color-primary) 55%, oklch(0.88 0.16 88)) 0%, transparent 70%),
+    radial-gradient(28% 30% at 78% 22%, color-mix(in oklab, oklch(0.78 0.15 210) 70%, transparent) 0%, transparent 72%),
+    radial-gradient(32% 32% at 80% 78%, color-mix(in oklab, oklch(0.72 0.18 320) 62%, transparent) 0%, transparent 72%),
+    radial-gradient(30% 30% at 20% 80%, color-mix(in oklab, oklch(0.78 0.17 20) 58%, transparent) 0%, transparent 72%);
+  animation: aurora-drift 22s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-mesh { animation: none; }
+}
+
+
 
 
 @keyframes text-live {
