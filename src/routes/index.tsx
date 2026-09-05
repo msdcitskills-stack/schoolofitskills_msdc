@@ -87,12 +87,12 @@ function Home() {
 
               <div className="mt-10 grid max-w-md grid-cols-3 gap-3 sm:gap-4">
                 {[
-                  { n: "30+", l: "Programs" },
-                  { n: "10th+", l: "Learners" },
-                  { n: "Manipal", l: "Campus" },
+                  { n: "30+", l: "Programs", t: "comet-tint-1" },
+                  { n: "10th+", l: "Learners", t: "comet-tint-2" },
+                  { n: "Manipal", l: "Campus", t: "comet-tint-3" },
                 ].map((s) => (
                   <CometCard key={s.l}>
-                    <div className="glass rounded-2xl px-3 py-4 text-center">
+                    <div className={`comet-tint ${s.t} rounded-2xl px-3 py-4 text-center backdrop-blur`}>
                       <div className="whitespace-nowrap text-2xl font-semibold tracking-tight">{s.n}</div>
                       <div className="eyebrow text-muted-foreground">
                         {s.l}
@@ -100,6 +100,7 @@ function Home() {
                     </div>
                   </CometCard>
                 ))}
+
               </div>
 
             </div>
