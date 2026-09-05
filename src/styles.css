@@ -471,6 +471,62 @@
   --grainient-c: oklch(from var(--primary) 0.94 0.07 calc(h + 30) / 0.7);
 }
 
+/* Light tinted, softly glowing stat tiles (comet cards) */
+@utility comet-tint {
+  position: relative;
+  background:
+    radial-gradient(120% 120% at 20% 0%, var(--ct-a), transparent 62%),
+    radial-gradient(120% 120% at 100% 100%, var(--ct-b), transparent 66%);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--ct-glow) 22%, transparent),
+    0 6px 24px -12px color-mix(in oklab, var(--ct-glow) 55%, transparent),
+    inset 0 1px 0 color-mix(in oklab, white 55%, transparent);
+  transition: box-shadow 0.35s ease;
+}
+
+.comet-tint::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--ct-glow) 38%, transparent), transparent 72%);
+  filter: blur(18px);
+  opacity: 0.55;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.comet-tint:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--ct-glow) 34%, transparent),
+    0 12px 34px -14px color-mix(in oklab, var(--ct-glow) 70%, transparent),
+    inset 0 1px 0 color-mix(in oklab, white 65%, transparent);
+}
+
+.comet-tint:hover::after {
+  opacity: 0.95;
+}
+
+@utility comet-tint-1 {
+  --ct-a: oklch(from var(--primary) 0.95 0.08 h / 0.85);
+  --ct-b: oklch(from var(--primary) 0.96 0.05 calc(h + 35) / 0.7);
+  --ct-glow: oklch(from var(--primary) 0.82 0.15 h);
+}
+
+@utility comet-tint-2 {
+  --ct-a: oklch(from var(--primary) 0.95 0.07 calc(h + 165) / 0.8);
+  --ct-b: oklch(from var(--primary) 0.96 0.05 calc(h + 200) / 0.68);
+  --ct-glow: oklch(from var(--primary) 0.8 0.13 calc(h + 180));
+}
+
+@utility comet-tint-3 {
+  --ct-a: oklch(from var(--primary) 0.95 0.08 calc(h + 290) / 0.8);
+  --ct-b: oklch(from var(--primary) 0.96 0.05 calc(h + 320) / 0.68);
+  --ct-glow: oklch(from var(--primary) 0.8 0.14 calc(h + 300));
+}
+
+
 @utility skeleton {
   background: linear-gradient(90deg,
     color-mix(in oklab, var(--color-muted) 95%, transparent) 0%,
