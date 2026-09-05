@@ -10,6 +10,7 @@ import { EncryptedText } from "@/components/encrypted-text";
 import { Reveal, RevealGroup, Parallax } from "@/components/reveal";
 
 import { Card3D, Card3DItem } from "@/components/card-3d";
+import { CometCard } from "@/components/ui/comet-card";
 import { TechMarquee } from "@/components/tech-marquee";
 import { CourseCard } from "@/components/course-card";
 import { SectionHeading } from "@/components/section-heading";
