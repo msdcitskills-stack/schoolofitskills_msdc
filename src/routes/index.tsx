@@ -10,6 +10,7 @@ import { EncryptedText } from "@/components/encrypted-text";
 import { Reveal, RevealGroup, Parallax } from "@/components/reveal";
 
 import { Card3D, Card3DItem } from "@/components/card-3d";
+import { CometCard } from "@/components/ui/comet-card";
 import { TechMarquee } from "@/components/tech-marquee";
 import { CourseCard } from "@/components/course-card";
 import { SectionHeading } from "@/components/section-heading";
@@ -90,17 +91,17 @@ function Home() {
                   { n: "10th+", l: "Learners" },
                   { n: "Manipal", l: "Campus" },
                 ].map((s) => (
-                  <div
-                    key={s.l}
-                    className="glass rounded-2xl px-3 py-4 text-center transition-transform hover:-translate-y-1"
-                  >
-                    <div className="whitespace-nowrap text-2xl font-semibold tracking-tight">{s.n}</div>
-                    <div className="eyebrow text-muted-foreground">
-                      {s.l}
+                  <CometCard key={s.l}>
+                    <div className="glass rounded-2xl px-3 py-4 text-center">
+                      <div className="whitespace-nowrap text-2xl font-semibold tracking-tight">{s.n}</div>
+                      <div className="eyebrow text-muted-foreground">
+                        {s.l}
+                      </div>
                     </div>
-                  </div>
+                  </CometCard>
                 ))}
               </div>
+
             </div>
             <Parallax className="relative lg:-mt-72" strength={54}>
               <Card3D className="moving-border-outer relative rounded-[2.6rem]" intensity={22}>
