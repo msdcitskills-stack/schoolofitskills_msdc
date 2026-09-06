@@ -38,6 +38,8 @@ export function SiteFooter() {
             <li><Link to="/tally" className="hover:text-primary">Tally</Link></li>
             <li><Link to="/internships" className="hover:text-primary">Internships</Link></li>
             <li><Link to="/school-programs" className="hover:text-primary">For Schools</Link></li>
+            <li><Link to="/faculties" className="hover:text-primary">Faculties</Link></li>
+
             <li><Link to="/about" className="hover:text-primary">About</Link></li>
           </ul>
         </div>
