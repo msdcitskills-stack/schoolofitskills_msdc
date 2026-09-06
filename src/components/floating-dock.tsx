@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Github, Linkedin, Facebook, Instagram, Twitter } from "lucide-react";
 
 const socials = [
