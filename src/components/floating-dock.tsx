@@ -55,41 +55,62 @@ function RedditIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 export function FloatingDock() {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const loop = [...socials, ...socials];
+
+  const renderItem = (s: (typeof socials)[number], key: string) => {
+    const Icon = s.icon;
+    const active = hovered === s.label;
+    return (
+      <a
+        key={key}
+        href={s.href}
+        target="_blank"
+        rel="noreferrer noopener"
+        aria-label={s.label}
+        onMouseEnter={() => setHovered(s.label)}
+        onFocus={() => setHovered(s.label)}
+        onBlur={() => setHovered(null)}
+        className={`group relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground transition-all duration-300 hover:scale-110 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_22px_-4px_color-mix(in_oklab,var(--color-primary)_70%,transparent)]`}
+      >
+        <Icon className="h-4 w-4" />
+        <span
+          className={`pointer-events-none absolute bottom-[calc(100%+0.6rem)] left-1/2 -translate-x-1/2 sm:bottom-auto sm:left-auto sm:right-[calc(100%+0.75rem)] sm:top-1/2 sm:-translate-y-1/2 whitespace-nowrap rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground shadow-md transition-opacity duration-200 ${
+            active ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {s.label}
+        </span>
+      </a>
+    );
+  };
+
   return (
     <div className="fixed bottom-4 left-1/2 z-40 -translate-x-1/2 sm:bottom-auto sm:left-auto sm:right-5 sm:top-1/2 sm:-translate-x-0 sm:-translate-y-1/2">
-      <div
-        className="glass flex flex-row items-center gap-2 rounded-full px-4 py-3 sm:flex-col sm:px-3 sm:py-4 shadow-[0_20px_60px_-25px_color-mix(in_oklab,var(--color-foreground)_60%,transparent)]"
-        onMouseLeave={() => setHovered(null)}
-      >
-        {socials.map((s, i) => {
-          const Icon = s.icon;
-          const active = hovered === i;
-          const near = hovered !== null && Math.abs(hovered - i) === 1;
-          const size = active ? "h-13 w-13" : near ? "h-11 w-11" : "h-10 w-10";
-          return (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label={s.label}
-              onMouseEnter={() => setHovered(i)}
-              className={`group relative flex ${size} items-center justify-center rounded-full bg-secondary text-secondary-foreground transition-all duration-300 hover:bg-primary hover:text-primary-foreground`}
-            >
-              <Icon className="h-4 w-4" />
-              <span
-                className={`pointer-events-none absolute bottom-[calc(100%+0.6rem)] left-1/2 -translate-x-1/2 sm:bottom-auto sm:left-auto sm:translate-x-0 sm:right-[calc(100%+0.75rem)] whitespace-nowrap rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground shadow-md transition-all duration-200 ${
-                  active ? "opacity-100 translate-x-0" : "opacity-0 translate-x-1"
-                }`}
-              >
-                {s.label}
-              </span>
-            </a>
-          );
-        })}
+      {/* Mobile: static horizontal dock */}
+      <div className="glass flex flex-row items-center gap-2 rounded-full px-4 py-3 shadow-[0_20px_60px_-25px_color-mix(in_oklab,var(--color-foreground)_60%,transparent)] sm:hidden">
+        {socials.map((s) => renderItem(s, s.label))}
+      </div>
+
+      {/* Desktop: vertical marquee dock */}
+      <div className="glass group/dock hidden overflow-hidden rounded-full px-3 py-4 shadow-[0_20px_60px_-25px_color-mix(in_oklab,var(--color-foreground)_60%,transparent)] sm:block">
+        <div
+          className="relative h-[19rem]"
+          style={{
+            maskImage:
+              "linear-gradient(180deg, transparent, black 12%, black 88%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(180deg, transparent, black 12%, black 88%, transparent)",
+          }}
+          onMouseLeave={() => setHovered(null)}
+        >
+          <div className="flex flex-col items-center gap-3 animate-marquee-y group-hover/dock:[animation-play-state:paused] motion-reduce:animate-none">
+            {loop.map((s, i) => renderItem(s, `${s.label}-${i}`))}
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
 
