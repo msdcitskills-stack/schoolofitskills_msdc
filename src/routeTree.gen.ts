@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TallyRouteImport } from './routes/tally'
 import { Route as SchoolProgramsRouteImport } from './routes/school-programs'
 import { Route as InternshipsRouteImport } from './routes/internships'
+import { Route as FacultiesRouteImport } from './routes/faculties'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -31,6 +32,11 @@ const SchoolProgramsRoute = SchoolProgramsRouteImport.update({
 const InternshipsRoute = InternshipsRouteImport.update({
   id: '/internships',
   path: '/internships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FacultiesRoute = FacultiesRouteImport.update({
+  id: '/faculties',
+  path: '/faculties',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/faculties': typeof FacultiesRoute
   '/internships': typeof InternshipsRoute
   '/school-programs': typeof SchoolProgramsRoute
   '/tally': typeof TallyRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/faculties': typeof FacultiesRoute
   '/internships': typeof InternshipsRoute
   '/school-programs': typeof SchoolProgramsRoute
   '/tally': typeof TallyRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/faculties': typeof FacultiesRoute
   '/internships': typeof InternshipsRoute
   '/school-programs': typeof SchoolProgramsRoute
   '/tally': typeof TallyRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/faculties'
     | '/internships'
     | '/school-programs'
     | '/tally'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/faculties'
     | '/internships'
     | '/school-programs'
     | '/tally'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/faculties'
     | '/internships'
     | '/school-programs'
     | '/tally'
@@ -127,6 +139,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  FacultiesRoute: typeof FacultiesRoute
   InternshipsRoute: typeof InternshipsRoute
   SchoolProgramsRoute: typeof SchoolProgramsRoute
   TallyRoute: typeof TallyRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/internships'
       fullPath: '/internships'
       preLoaderRoute: typeof InternshipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faculties': {
+      id: '/faculties'
+      path: '/faculties'
+      fullPath: '/faculties'
+      preLoaderRoute: typeof FacultiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -199,6 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  FacultiesRoute: FacultiesRoute,
   InternshipsRoute: InternshipsRoute,
   SchoolProgramsRoute: SchoolProgramsRoute,
   TallyRoute: TallyRoute,

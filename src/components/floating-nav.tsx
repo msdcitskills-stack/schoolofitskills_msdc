@@ -10,6 +10,8 @@ const links = [
   { to: "/tally", label: "Tally" },
   { to: "/internships", label: "Internships" },
   { to: "/school-programs", label: "For Schools" },
+  { to: "/faculties", label: "Faculties" },
+
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
