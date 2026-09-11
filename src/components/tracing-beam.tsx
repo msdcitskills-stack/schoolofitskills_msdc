@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { onScrollFrame } from "@/lib/scroll-ticker";
 
 /**
  * TracingBeam — a curvy glowing beam pinned to the left edge that traces the
@@ -28,12 +29,7 @@ export function TracingBeam() {
     let last = 0;
     let velocity = 0;
 
-    const readTarget = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      target = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-      velocity = Math.min(0.2, Math.abs(target - last) * 4);
-      last = target;
-    };
+    let lastPoint = -1;
 
     const frame = () => {
       raf = 0;
