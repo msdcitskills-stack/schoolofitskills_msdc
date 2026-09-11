@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
+import { onScrollFrame } from "@/lib/scroll-ticker";
 
 type Direction = "up" | "down" | "left" | "right" | "none";
 
@@ -166,39 +167,30 @@ export function Parallax({
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
-    let raf = 0;
     let visible = true;
     let lastY = Number.NaN;
 
-    const io = new IntersectionObserver(([e]) => {
-      visible = !!e?.isIntersecting;
-      if (visible && !raf) raf = requestAnimationFrame(update);
-    });
+    const io = new IntersectionObserver(
+      ([e]) => {
+        visible = !!e?.isIntersecting;
+      },
+      { rootMargin: "120px" },
+    );
     io.observe(el);
 
-    function update() {
-      raf = 0;
+    const unsubscribe = onScrollFrame(({ height }) => {
       if (!visible) return;
-      const rect = el!.getBoundingClientRect();
-      const progress = (rect.top + rect.height / 2) / window.innerHeight - 0.5;
-      const y = Math.round(-progress * strength * 100) / 100;
+      const rect = el.getBoundingClientRect();
+      const progress = (rect.top + rect.height / 2) / height - 0.5;
+      const y = Math.round(-progress * strength * 10) / 10;
       if (y === lastY) return;
       lastY = y;
-      el!.style.transform = `translate3d(0, ${y}px, 0)`;
-    }
+      el.style.transform = `translate3d(0, ${y}px, 0)`;
+    });
 
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
     return () => {
       io.disconnect();
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      unsubscribe();
     };
   }, [strength]);
 

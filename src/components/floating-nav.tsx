@@ -1,5 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { onScrollFrame } from "@/lib/scroll-ticker";
 import { Palette } from "lucide-react";
 import { themes, useTheme } from "./theme-provider";
 import soisLogo from "@/assets/sois-logo.png.asset.json";
@@ -24,10 +25,13 @@ export function FloatingNav() {
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 20);
-    on();
-    window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
+    let last = false;
+    return onScrollFrame(({ y }) => {
+      const next = y > 20;
+      if (next === last) return;
+      last = next;
+      setScrolled(next);
+    });
   }, []);
 
   return (
