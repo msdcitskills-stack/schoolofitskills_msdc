@@ -3,7 +3,15 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { DotBackground } from "@/components/dot-background";
 import { Card3D, Card3DItem } from "@/components/card-3d";
-import { Mail, Phone, Compass, HeartHandshake, Lightbulb, ArrowRight } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  Compass,
+  HeartHandshake,
+  Lightbulb,
+  ArrowRight,
+  ArrowUpRight,
+} from "lucide-react";
 
 export const Route = createFileRoute("/faculties")({
   head: () => ({
@@ -42,6 +50,57 @@ const values = [
     icon: HeartHandshake,
     title: "Patient, human pace",
     text: "School children and professionals learn side by side, each at a pace that respects them.",
+  },
+];
+
+const faculty = [
+  {
+    name: "Swathi K",
+    emp: "MSDC074",
+    role: "Skill Trainer",
+    link: "https://swathiemp-card.vercel.app",
+  },
+  {
+    name: "Anisha Shenoy",
+    emp: "MSDC053",
+    role: "Counsellor & Tally Trainer",
+    link: "https://anishashenoyemp-card.vercel.app/",
+  },
+  {
+    name: "Riya",
+    emp: "MSDC053",
+    role: "Skill Trainer",
+    link: "https://riyaaminemp-card.vercel.app/",
+  },
+  {
+    name: "Shubharaksha",
+    emp: "MSDC",
+    role: "Skill Trainer",
+    link: "https://shubharakshaemp-card.vercel.app/",
+  },
+  {
+    name: "Puneeth Acharya",
+    emp: "MSDC379",
+    role: "Skills Trainer",
+    link: "https://puneethacharyaempcard.vercel.app/",
+  },
+  {
+    name: "Ananya V Hegde",
+    emp: "MSDC065",
+    role: "Technical Trainer",
+    link: "https://ananyaemp-card.vercel.app/",
+  },
+  {
+    name: "Veetrag",
+    emp: "MSDC075",
+    role: "Skills Trainer",
+    link: "https://veetragjainemp-card.vercel.app",
+  },
+  {
+    name: "Anusha Naik",
+    emp: "MSDC077",
+    role: "Skills Trainer",
+    link: "https://anushanaikemp-card.vercel.app/",
   },
 ];
 
@@ -121,25 +180,68 @@ function Faculties() {
       </Reveal>
 
       <Reveal as="section" className="mx-auto max-w-6xl page-x pb-20">
-        <h2 className="text-xl font-semibold tracking-tight">More faculty, joining soon</h2>
-        <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-          Profiles of our subject faculty are being added. Share their details and they will
-          appear here in the same format.
-        </p>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className="rounded-3xl border border-dashed border-border/80 bg-card/50 p-7"
+        <SectionHeading
+          eyebrow="Faculty ID cards"
+          title="The trainers you will learn with."
+          description="Tap any card to open that faculty member's official employee card."
+        />
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {faculty.map((f) => (
+            <a
+              key={f.name}
+              href={f.link}
+              target="_blank"
+              rel="noreferrer"
+              className="group relative block outline-none"
             >
-              <div className="h-16 w-16 animate-pulse rounded-full bg-muted" />
-              <div className="mt-5 h-4 w-32 animate-pulse rounded-full bg-muted" />
-              <div className="mt-3 h-3 w-44 animate-pulse rounded-full bg-muted/70" />
-              <div className="mt-6 space-y-2">
-                <div className="h-2.5 w-full animate-pulse rounded-full bg-muted/60" />
-                <div className="h-2.5 w-4/5 animate-pulse rounded-full bg-muted/60" />
-              </div>
-            </div>
+              <Card3D className="rounded-[1.75rem]" intensity={10}>
+                <div className="glass corner-glow relative h-full overflow-hidden rounded-[1.75rem] border border-border p-6 transition-shadow duration-300 group-focus-visible:ring-2 group-focus-visible:ring-ring">
+                  <div
+                    className="aurora-mesh pointer-events-none absolute inset-0 opacity-40 transition-opacity duration-500 group-hover:opacity-80"
+                    aria-hidden
+                  />
+                  {/* lanyard slot */}
+                  <span
+                    className="absolute left-1/2 top-3 h-1.5 w-14 -translate-x-1/2 rounded-full bg-muted"
+                    aria-hidden
+                  />
+                  <div className="relative mt-5 flex items-start gap-4">
+                    <Card3DItem z={70}>
+                      <div className="relative grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-secondary text-secondary-foreground shadow-[0_18px_45px_-25px_color-mix(in_oklab,var(--color-primary)_80%,transparent)]">
+                        <span className="text-lg font-bold tracking-tight">
+                          {f.name
+                            .split(" ")
+                            .map((p) => p[0])
+                            .slice(0, 2)
+                            .join("")}
+                        </span>
+                      </div>
+                    </Card3DItem>
+                    <Card3DItem z={40} className="min-w-0">
+                      <h3 className="truncate text-lg font-semibold tracking-tight">{f.name}</h3>
+                      <p className="mt-1 text-sm font-medium text-primary">{f.role}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        School of IT Skills, MSDC
+                      </p>
+                    </Card3DItem>
+                  </div>
+
+                  <div className="relative mt-6 flex items-end justify-between gap-3 border-t border-border/70 pt-4">
+                    <div>
+                      <span className="eyebrow text-muted-foreground">Emp No</span>
+                      <p className="font-mono text-sm font-semibold tracking-wider">{f.emp}</p>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/70 px-3 py-1.5 text-xs font-semibold transition-transform duration-300 group-hover:translate-x-1">
+                      View card <ArrowUpRight className="h-3.5 w-3.5" />
+                    </span>
+                  </div>
+                  <span
+                    className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    aria-hidden
+                  />
+                </div>
+              </Card3D>
+            </a>
           ))}
         </div>
       </Reveal>
