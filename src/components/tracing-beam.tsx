@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { onScrollFrame } from "@/lib/scroll-ticker";
 
 /**
  * TracingBeam — a curvy glowing beam pinned to the left edge that traces the
@@ -28,12 +29,7 @@ export function TracingBeam() {
     let last = 0;
     let velocity = 0;
 
-    const readTarget = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      target = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-      velocity = Math.min(0.2, Math.abs(target - last) * 4);
-      last = target;
-    };
+    let lastPoint = -1;
 
     const frame = () => {
       raf = 0;
@@ -54,29 +50,33 @@ export function TracingBeam() {
       lit.style.opacity = visible;
       tail.style.opacity = p > 0.002 ? `${0.35 + velocity * 2}` : "0";
 
-      const pt = path.getPointAtLength(len);
-      head.setAttribute("cx", `${pt.x}`);
-      head.setAttribute("cy", `${pt.y}`);;;;
+      // getPointAtLength is the costly call here — only re-measure when the
+      // comet head actually moved a visible amount.
+      const rounded = Math.round(len);
+      if (rounded !== lastPoint) {
+        lastPoint = rounded;
+        const pt = path.getPointAtLength(len);
+        head.setAttribute("cx", `${pt.x}`);
+        head.setAttribute("cy", `${pt.y}`);
+      }
       head.style.opacity = visible;
 
-      velocity *= 0.92;
-      if (Math.abs(target - current) > 0.0004 || velocity > 0.001) {
+      velocity *= 0.9;
+      if (Math.abs(target - current) > 0.0006 || velocity > 0.002) {
         raf = requestAnimationFrame(frame);
       }
     };
 
-    const kick = () => {
-      readTarget();
+    const unsubscribe = onScrollFrame(({ progress }) => {
+      target = progress;
+      velocity = Math.min(0.2, Math.abs(target - last) * 4);
+      last = target;
       if (!raf) raf = requestAnimationFrame(frame);
-    };
+    });
 
-    kick();
-    window.addEventListener("scroll", kick, { passive: true });
-    window.addEventListener("resize", kick, { passive: true });
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", kick);
-      window.removeEventListener("resize", kick);
+      unsubscribe();
     };
   }, []);
 
@@ -92,15 +92,6 @@ export function TracingBeam() {
         preserveAspectRatio="none"
         className="h-full w-full overflow-visible"
       >
-        <defs>
-          <filter id="beam-blur" x="-300%" y="-100%" width="700%" height="300%">
-            <feGaussianBlur stdDeviation="5" />
-          </filter>
-          <filter id="beam-soft" x="-300%" y="-100%" width="700%" height="300%">
-            <feGaussianBlur stdDeviation="2" />
-          </filter>
-        </defs>
-
         {/* Track */}
         <path
           d={d}
@@ -120,9 +111,9 @@ export function TracingBeam() {
           d={d}
           fill="none"
           stroke="var(--color-primary)"
-          strokeWidth="2.5"
+          strokeWidth="4"
+          strokeOpacity="0.35"
           strokeLinecap="round"
-          filter="url(#beam-soft)"
           vectorEffect="non-scaling-stroke"
           className="opacity-0"
         />

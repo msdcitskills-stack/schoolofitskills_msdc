@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { onScrollFrame } from "@/lib/scroll-ticker";
 
 /** Thin gradient bar at the top of the page tracking scroll progress. */
 export function ScrollProgress() {
@@ -7,29 +8,14 @@ export function ScrollProgress() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    let raf = 0;
-
-    const update = () => {
-      raf = 0;
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - window.innerHeight;
-      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    let lastP = -1;
+    return onScrollFrame(({ progress }) => {
+      const p = Math.round(progress * 1000) / 1000;
+      if (p === lastP) return;
+      lastP = p;
       el.style.transform = `scaleX(${p})`;
       el.style.opacity = p > 0.005 ? "1" : "0";
-    };
-
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
+    });
   }, []);
 
   return (
