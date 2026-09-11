@@ -50,29 +50,33 @@ export function TracingBeam() {
       lit.style.opacity = visible;
       tail.style.opacity = p > 0.002 ? `${0.35 + velocity * 2}` : "0";
 
-      const pt = path.getPointAtLength(len);
-      head.setAttribute("cx", `${pt.x}`);
-      head.setAttribute("cy", `${pt.y}`);;;;
+      // getPointAtLength is the costly call here — only re-measure when the
+      // comet head actually moved a visible amount.
+      const rounded = Math.round(len);
+      if (rounded !== lastPoint) {
+        lastPoint = rounded;
+        const pt = path.getPointAtLength(len);
+        head.setAttribute("cx", `${pt.x}`);
+        head.setAttribute("cy", `${pt.y}`);
+      }
       head.style.opacity = visible;
 
-      velocity *= 0.92;
-      if (Math.abs(target - current) > 0.0004 || velocity > 0.001) {
+      velocity *= 0.9;
+      if (Math.abs(target - current) > 0.0006 || velocity > 0.002) {
         raf = requestAnimationFrame(frame);
       }
     };
 
-    const kick = () => {
-      readTarget();
+    const unsubscribe = onScrollFrame(({ progress }) => {
+      target = progress;
+      velocity = Math.min(0.2, Math.abs(target - last) * 4);
+      last = target;
       if (!raf) raf = requestAnimationFrame(frame);
-    };
+    });
 
-    kick();
-    window.addEventListener("scroll", kick, { passive: true });
-    window.addEventListener("resize", kick, { passive: true });
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", kick);
-      window.removeEventListener("resize", kick);
+      unsubscribe();
     };
   }, []);
 
