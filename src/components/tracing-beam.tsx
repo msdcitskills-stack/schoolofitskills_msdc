@@ -92,15 +92,6 @@ export function TracingBeam() {
         preserveAspectRatio="none"
         className="h-full w-full overflow-visible"
       >
-        <defs>
-          <filter id="beam-blur" x="-300%" y="-100%" width="700%" height="300%">
-            <feGaussianBlur stdDeviation="5" />
-          </filter>
-          <filter id="beam-soft" x="-300%" y="-100%" width="700%" height="300%">
-            <feGaussianBlur stdDeviation="2" />
-          </filter>
-        </defs>
-
         {/* Track */}
         <path
           d={d}
@@ -120,9 +111,9 @@ export function TracingBeam() {
           d={d}
           fill="none"
           stroke="var(--color-primary)"
-          strokeWidth="2.5"
+          strokeWidth="4"
+          strokeOpacity="0.35"
           strokeLinecap="round"
-          filter="url(#beam-soft)"
           vectorEffect="non-scaling-stroke"
           className="opacity-0"
         />
