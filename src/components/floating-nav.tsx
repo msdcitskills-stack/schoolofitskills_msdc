@@ -36,12 +36,12 @@ export function FloatingNav() {
 
   return (
     <div
-      className={`fixed top-4 left-1/2 z-50 -translate-x-1/2 transition-all duration-500 ${
+      className={`fixed top-4 left-1/2 z-[9999] isolate -translate-x-1/2 transition-all duration-500 ${
         scrolled ? "top-3 scale-[0.98]" : "top-6"
       }`}
     >
       <nav
-        className="glass flex w-max max-w-[min(96vw,72rem)] flex-nowrap items-center gap-1 rounded-full px-2 py-2 shadow-[0_10px_40px_-20px_color-mix(in_oklab,var(--color-foreground)_50%,transparent)]"
+        className="glass relative flex w-max max-w-[min(96vw,72rem)] flex-nowrap items-center gap-1 overflow-visible rounded-full px-2 py-2 shadow-[0_10px_40px_-20px_color-mix(in_oklab,var(--color-foreground)_50%,transparent)]"
         onMouseLeave={() => setHovered(null)}
       >
         <Link
@@ -98,7 +98,7 @@ export function FloatingNav() {
             <Palette className="h-4 w-4" />
           </button>
           {openTheme && (
-            <div className="glass absolute right-0 top-12 flex w-56 flex-col gap-1 rounded-2xl p-2 shadow-xl animate-in fade-in slide-in-from-top-2">
+            <div className="glass pointer-events-auto absolute right-0 top-12 z-[10000] flex w-56 flex-col gap-1 rounded-2xl p-2 shadow-xl animate-in fade-in slide-in-from-top-2">
               {themes.map((t) => (
                 <button
                   key={t.key}
