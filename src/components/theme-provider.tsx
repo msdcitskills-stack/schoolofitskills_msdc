@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 
 export type ThemeKey = "default" | "midnight" | "emerald" | "rose" | "obsidian";
 
@@ -15,6 +15,14 @@ const ThemeCtx = createContext<{ theme: ThemeKey; setTheme: (t: ThemeKey) => voi
   setTheme: () => {},
 });
 
+function applyTheme(theme: ThemeKey) {
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+  themes.forEach((item) => root.classList.remove(`theme-${item.key}`));
+  if (theme !== "default") root.classList.add(`theme-${theme}`);
+  window.localStorage.setItem("sois-theme", theme);
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<ThemeKey>("default");
 
@@ -23,18 +31,18 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       typeof window !== "undefined"
         ? (window.localStorage.getItem("sois-theme") as ThemeKey | null)
         : null;
-    if (saved) setTheme(saved);
+    if (saved && themes.some((item) => item.key === saved)) {
+      applyTheme(saved);
+      setTheme(saved);
+    }
   }, []);
 
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    themes.forEach((t) => root.classList.remove(`theme-${t.key}`));
-    if (theme !== "default") root.classList.add(`theme-${theme}`);
-    window.localStorage.setItem("sois-theme", theme);
-  }, [theme]);
+  const selectTheme = useCallback((nextTheme: ThemeKey) => {
+    applyTheme(nextTheme);
+    setTheme(nextTheme);
+  }, []);
 
-  return <ThemeCtx.Provider value={{ theme, setTheme }}>{children}</ThemeCtx.Provider>;
+  return <ThemeCtx.Provider value={{ theme, setTheme: selectTheme }}>{children}</ThemeCtx.Provider>;
 }
 
 export const useTheme = () => useContext(ThemeCtx);

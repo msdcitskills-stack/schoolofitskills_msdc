@@ -91,16 +91,22 @@ export function FloatingNav() {
         </ul>
         <div className="relative ml-1 shrink-0">
           <button
+            type="button"
             onClick={() => setOpenTheme((v) => !v)}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-secondary text-secondary-foreground transition-transform hover:scale-110"
             aria-label="Change theme"
+            aria-expanded={openTheme}
+            aria-haspopup="menu"
           >
             <Palette className="h-4 w-4" />
           </button>
           {openTheme && (
-            <div className="glass pointer-events-auto absolute right-0 top-12 z-[10000] flex w-56 flex-col gap-1 rounded-2xl p-2 shadow-xl animate-in fade-in slide-in-from-top-2">
+            <div role="menu" className="glass pointer-events-auto absolute right-0 top-12 z-[10000] flex w-56 flex-col gap-1 rounded-2xl p-2 shadow-xl animate-in fade-in slide-in-from-top-2">
               {themes.map((t) => (
                 <button
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={theme === t.key}
                   key={t.key}
                   onClick={() => {
                     setTheme(t.key);
