@@ -740,8 +740,8 @@
   .aurora-mesh { filter: blur(24px); animation-duration: 30s; }
 }
 
-/* Isolate expensive card interiors so their glows never repaint the page. */
-.glass,
+/* Isolate expensive card interiors so their glows never repaint the page.
+   Glass surfaces are excluded because navigation menus can extend outside them. */
 .glare-card,
 .comet-tint,
 .aurora-mesh { contain: paint; }
