@@ -41,7 +41,9 @@ export function FloatingNav() {
         setIndicator(null);
         return;
       }
-      const next = { left: item.offsetLeft, width: item.offsetWidth };
+      const slot = item.parentElement;
+      if (!slot) return;
+      const next = { left: slot.offsetLeft, width: slot.offsetWidth };
       setIndicator((previous) =>
         previous?.left === next.left && previous.width === next.width ? previous : next
       );
