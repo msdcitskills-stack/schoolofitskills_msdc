@@ -19,6 +19,8 @@ export const Route = createFileRoute("/school-programs")({
         property: "og:description",
         content: "Playful, powerful IT foundations for young learners at MSDC, Manipal.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => {

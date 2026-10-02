@@ -20,6 +20,8 @@ export const Route = createFileRoute("/tally")({
         content:
           "Tally-Company certified programs from beginner to expert, taught at Manipal Skill Development Centre.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: TallyPage,

@@ -22,6 +22,8 @@ export const Route = createFileRoute("/courses/")({
         content:
           "The complete catalogue of 30+ IT courses at Manipal Skill Development Centre.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: CoursesPage,

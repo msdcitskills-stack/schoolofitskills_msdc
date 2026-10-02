@@ -21,6 +21,8 @@ export const Route = createFileRoute("/about")({
         content:
           "Empowering future generations with cutting-edge IT education — a unit of Dr TMA Pai Foundation.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: About,
