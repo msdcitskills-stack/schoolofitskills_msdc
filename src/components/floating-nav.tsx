@@ -114,7 +114,7 @@ export function FloatingNav() {
                   onFocus={() => setHovered(l.to)}
                   aria-current={active ? "page" : undefined}
                   className={`relative z-10 block whitespace-nowrap rounded-full px-2.5 py-2 text-[0.8rem] font-medium transition-[color,transform] duration-300 ease-out hover:-translate-y-px focus-visible:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transform-none motion-reduce:transition-none lg:px-3 lg:text-[0.875rem] ${
-                    active || hovered === l.to
+                    hovered === l.to || (!hovered && active)
                       ? "text-secondary-foreground"
                       : "text-foreground/80 hover:text-foreground"
                   }`}
