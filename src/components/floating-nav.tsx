@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { onScrollFrame } from "@/lib/scroll-ticker";
 import { Palette } from "lucide-react";
 import { themes, useTheme } from "./theme-provider";
@@ -12,7 +12,6 @@ const links = [
   { to: "/internships", label: "Internships" },
   { to: "/school-programs", label: "For Schools" },
   { to: "/faculties", label: "Faculties" },
-
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
@@ -21,8 +20,40 @@ export function FloatingNav() {
   const { pathname } = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+  const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
+  const listRef = useRef<HTMLUListElement>(null);
   const [openTheme, setOpenTheme] = useState(false);
   const { theme, setTheme } = useTheme();
+  const activeTo = links.find((link) =>
+    link.to === "/" ? pathname === "/" : pathname === link.to || pathname.startsWith(`${link.to}/`)
+  )?.to;
+
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+
+    const measure = () => {
+      const target = hovered ?? activeTo;
+      const item = Array.from(list.querySelectorAll<HTMLElement>("[data-nav-to]")).find(
+        (element) => element.dataset.navTo === target
+      );
+      if (!item) {
+        setIndicator(null);
+        return;
+      }
+      const slot = item.parentElement;
+      if (!slot) return;
+      const next = { left: slot.offsetLeft, width: slot.offsetWidth };
+      setIndicator((previous) =>
+        previous?.left === next.left && previous.width === next.width ? previous : next
+      );
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(list);
+    return () => observer.disconnect();
+  }, [activeTo, hovered]);
 
   useEffect(() => {
     let last = false;
@@ -55,36 +86,41 @@ export function FloatingNav() {
           </span>
         </Link>
         <div className="mx-1 hidden h-6 w-px shrink-0 bg-border md:block" />
-        <ul className="hidden min-w-0 flex-nowrap items-center md:flex">
+        <ul
+          ref={listRef}
+          className="relative hidden min-w-0 flex-nowrap items-center md:flex"
+          onMouseLeave={() => setHovered(null)}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setHovered(null);
+          }}
+        >
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-0 rounded-full bg-secondary transition-[transform,width,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+            style={{
+              width: indicator?.width ?? 0,
+              transform: `translateX(${indicator?.left ?? 0}px)`,
+              opacity: indicator ? 1 : 0,
+            }}
+          />
           {links.map((l) => {
-            const active =
-              pathname === l.to || (l.to !== "/" && pathname.startsWith(l.to));
+            const active = activeTo === l.to;
             return (
               <li key={l.to} className="relative shrink-0">
                 <Link
                   to={l.to}
+                  data-nav-to={l.to}
                   onMouseEnter={() => setHovered(l.to)}
-                  className={`relative z-10 block whitespace-nowrap rounded-full px-2.5 py-2 text-[0.8rem] font-medium transition-colors lg:px-3 lg:text-[0.875rem] ${
-                    active || hovered === l.to
+                  onFocus={() => setHovered(l.to)}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative z-10 block whitespace-nowrap rounded-full px-2.5 py-2 text-[0.8rem] font-medium transition-[color,transform] duration-300 ease-out hover:-translate-y-px focus-visible:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transform-none motion-reduce:transition-none lg:px-3 lg:text-[0.875rem] ${
+                    hovered === l.to || (!hovered && active)
                       ? "text-secondary-foreground"
                       : "text-foreground/80 hover:text-foreground"
                   }`}
                 >
-                  {hovered === l.to && (
-                    <span
-                      className="absolute inset-0 -z-10 rounded-full bg-secondary animate-in fade-in zoom-in-95 duration-200"
-                      aria-hidden
-                    />
-                  )}
-                  {active && (
-                    <span
-                      className="absolute inset-0 -z-10 rounded-full bg-secondary"
-                      aria-hidden
-                    />
-                  )}
                   <span>{l.label}</span>
                 </Link>
-
               </li>
             );
           })}

@@ -32,6 +32,8 @@ export const Route = createFileRoute("/")({
         content:
           "Empowering future generations with cutting-edge IT education at Manipal Skill Development Centre.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Home,

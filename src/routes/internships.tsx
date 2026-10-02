@@ -19,6 +19,8 @@ export const Route = createFileRoute("/internships")({
         property: "og:description",
         content: "Ship real projects with 4–12 week mentor-led internships.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => {

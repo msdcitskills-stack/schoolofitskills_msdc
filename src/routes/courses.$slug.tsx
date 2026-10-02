@@ -46,6 +46,11 @@ export const Route = createFileRoute("/courses/$slug")({
       return {
         meta: [
           { title: "Course not found — School of IT Skills" },
+          { name: "description", content: "This course is not available in the School of IT Skills catalogue." },
+          { property: "og:title", content: "Course not found — School of IT Skills" },
+          { property: "og:description", content: "This course is not available in the School of IT Skills catalogue." },
+          { property: "og:type", content: "website" },
+          { name: "twitter:card", content: "summary_large_image" },
           { name: "robots", content: "noindex" },
         ],
       };
