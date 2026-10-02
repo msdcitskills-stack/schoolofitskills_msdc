@@ -72,7 +72,7 @@ export function FloatingNav() {
       }`}
     >
       <nav
-        className="glass relative flex w-max max-w-[min(96vw,72rem)] flex-nowrap items-center gap-1 overflow-visible rounded-full px-2 py-2 shadow-[0_10px_40px_-20px_color-mix(in_oklab,var(--color-foreground)_50%,transparent)]"
+        className="glass alive-nav relative flex w-max max-w-[min(96vw,72rem)] flex-nowrap items-center gap-1 overflow-visible rounded-full px-2 py-2 shadow-[0_10px_40px_-20px_color-mix(in_oklab,var(--color-foreground)_50%,transparent)]"
         onMouseLeave={() => setHovered(null)}
       >
         <Link
@@ -80,7 +80,7 @@ export function FloatingNav() {
           className="flex shrink-0 items-center gap-2 pl-1.5 pr-2 lg:pr-3"
           aria-label="School of IT Skills"
         >
-          <img src={soisLogo.url} alt="" className="h-8 w-8 rounded-full" />
+          <img src={soisLogo.url} alt="" className="alive-nav-logo h-8 w-8 rounded-full" />
           <span className="hidden whitespace-nowrap text-sm font-semibold tracking-tight max-md:inline lg:inline">
             School of IT Skills
           </span>
@@ -96,7 +96,7 @@ export function FloatingNav() {
         >
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 rounded-full bg-secondary transition-[transform,width,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+            className="alive-nav-indicator pointer-events-none absolute inset-y-0 left-0 rounded-full bg-secondary transition-[transform,width,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
             style={{
               width: indicator?.width ?? 0,
               transform: `translateX(${indicator?.left ?? 0}px)`,
@@ -134,7 +134,7 @@ export function FloatingNav() {
             aria-expanded={openTheme}
             aria-haspopup="menu"
           >
-            <Palette className="h-4 w-4" />
+            <Palette className="alive-nav-palette h-4 w-4" />
           </button>
           {openTheme && (
             <div role="menu" className="glass pointer-events-auto absolute right-0 top-12 z-[10000] flex w-56 flex-col gap-1 rounded-2xl p-2 shadow-xl animate-in fade-in slide-in-from-top-2">
