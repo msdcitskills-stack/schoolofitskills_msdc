@@ -259,7 +259,7 @@ function Faculties() {
       </Reveal>
 
       <Reveal as="section" className="mx-auto max-w-6xl page-x pb-24">
-        <div className="orbit-border glass rounded-3xl">
+        <div className="orbit-border glass flex flex-col items-start justify-between gap-6 rounded-3xl p-8 sm:flex-row sm:items-center sm:p-10">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Want to teach with us?</h2>
             <p className="mt-2 text-sm text-muted-foreground">
