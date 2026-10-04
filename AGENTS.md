@@ -10,3 +10,5 @@
 <!-- LOVABLE:END -->
 
 - Keep the floating navigation's active and hover highlight as one measured element inside the links list, so transitions glide without changing link geometry or theme controls.
+
+- Faculty portraits use CDN asset pointers and consistent, lazy-loaded portrait frames to keep the directory lightweight and visually stable.

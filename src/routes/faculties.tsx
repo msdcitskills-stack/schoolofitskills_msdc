@@ -3,6 +3,14 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { DotBackground } from "@/components/dot-background";
 import { Card3D, Card3DItem } from "@/components/card-3d";
+import swathiPhoto from "@/assets/faculty/Swathi.webp.asset.json";
+import anishaPhoto from "@/assets/faculty/Anisha.webp.asset.json";
+import riyaPhoto from "@/assets/faculty/Riya.webp.asset.json";
+import shubharakshaPhoto from "@/assets/faculty/Shubharaksha.webp.asset.json";
+import puneethPhoto from "@/assets/faculty/Puneeth.webp.asset.json";
+import ananyaPhoto from "@/assets/faculty/Ananya.webp.asset.json";
+import veetragPhoto from "@/assets/faculty/Veetrag.jpg.asset.json";
+import anushaPhoto from "@/assets/faculty/Anusha.webp.asset.json";
 import {
   Mail,
   Phone,
@@ -56,48 +64,56 @@ const values = [
 const faculty = [
   {
     name: "Swathi K",
+    photo: swathiPhoto.url,
     emp: "MSDC074",
     role: "Skill Trainer",
     link: "https://swathiemp-card.vercel.app",
   },
   {
     name: "Anisha Shenoy",
+    photo: anishaPhoto.url,
     emp: "MSDC053",
     role: "Counsellor & Tally Trainer",
     link: "https://anishashenoyemp-card.vercel.app/",
   },
   {
     name: "Riya",
+    photo: riyaPhoto.url,
     emp: "MSDC053",
     role: "Skill Trainer",
     link: "https://riyaaminemp-card.vercel.app/",
   },
   {
     name: "Shubharaksha",
+    photo: shubharakshaPhoto.url,
     emp: "MSDC",
     role: "Skill Trainer",
     link: "https://shubharakshaemp-card.vercel.app/",
   },
   {
     name: "Puneeth Acharya",
+    photo: puneethPhoto.url,
     emp: "MSDC379",
     role: "Skills Trainer",
     link: "https://puneethacharyaempcard.vercel.app/",
   },
   {
     name: "Ananya V Hegde",
+    photo: ananyaPhoto.url,
     emp: "MSDC065",
     role: "Technical Trainer",
     link: "https://ananyaemp-card.vercel.app/",
   },
   {
     name: "Veetrag",
+    photo: veetragPhoto.url,
     emp: "MSDC075",
     role: "Skills Trainer",
     link: "https://veetragjainemp-card.vercel.app",
   },
   {
     name: "Anusha Naik",
+    photo: anushaPhoto.url,
     emp: "MSDC077",
     role: "Skills Trainer",
     link: "https://anushanaikemp-card.vercel.app/",
@@ -181,65 +197,50 @@ function Faculties() {
 
       <Reveal as="section" className="mx-auto max-w-6xl page-x pb-20">
         <SectionHeading
-          eyebrow="Faculty ID cards"
+          eyebrow="Our faculty"
           title="The trainers you will learn with."
-          description="Tap any card to open that faculty member's official employee card."
+          description="Meet the educators bringing experience, care and curiosity to every classroom."
         />
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-x-7 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {faculty.map((f) => (
             <a
               key={f.name}
               href={f.link}
               target="_blank"
-              rel="noreferrer"
-              className="group relative block outline-none"
+              rel="noopener noreferrer"
+              aria-label={`View ${f.name}'s employee card`}
+              className="group relative block min-w-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
             >
-              <Card3D className="rounded-[1.75rem]" intensity={10}>
-                <div className="glass corner-glow relative h-full overflow-hidden rounded-[1.75rem] border border-border p-6 transition-shadow duration-300 group-focus-visible:ring-2 group-focus-visible:ring-ring">
-                  <div
-                    className="aurora-mesh pointer-events-none absolute inset-0 opacity-40 transition-opacity duration-500 group-hover:opacity-80"
-                    aria-hidden
-                  />
-                  {/* lanyard slot */}
-                  <span
-                    className="absolute left-1/2 top-3 h-1.5 w-14 -translate-x-1/2 rounded-full bg-muted"
-                    aria-hidden
-                  />
-                  <div className="relative mt-5 flex items-start gap-4">
-                    <Card3DItem z={70}>
-                      <div className="relative grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-secondary text-secondary-foreground shadow-[0_18px_45px_-25px_color-mix(in_oklab,var(--color-primary)_80%,transparent)]">
-                        <span className="text-lg font-bold tracking-tight">
-                          {f.name
-                            .split(" ")
-                            .map((p) => p[0])
-                            .slice(0, 2)
-                            .join("")}
-                        </span>
-                      </div>
-                    </Card3DItem>
-                    <Card3DItem z={40} className="min-w-0">
-                      <h3 className="truncate text-lg font-semibold tracking-tight">{f.name}</h3>
-                      <p className="mt-1 text-sm font-medium text-primary">{f.role}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        School of IT Skills, MSDC
-                      </p>
-                    </Card3DItem>
-                  </div>
-
-                  <div className="relative mt-6 flex items-end justify-between gap-3 border-t border-border/70 pt-4">
-                    <div>
-                      <span className="eyebrow text-muted-foreground">Emp No</span>
-                      <p className="font-mono text-sm font-semibold tracking-wider">{f.emp}</p>
-                    </div>
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/70 px-3 py-1.5 text-xs font-semibold transition-transform duration-300 group-hover:translate-x-1">
-                      View card <ArrowUpRight className="h-3.5 w-3.5" />
+              <Card3D className="h-full rounded-lg" intensity={4}>
+                <article className="h-full overflow-hidden rounded-lg border border-border bg-card transition-colors duration-300 group-hover:border-primary/40">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-muted">
+                    <img
+                      src={f.photo}
+                      alt={f.name}
+                      width={640}
+                      height={800}
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.035] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                    />
+                    <span className="absolute bottom-4 left-4 rounded-md border border-border bg-background/95 px-2.5 py-1.5 font-mono text-xs font-medium text-foreground">
+                      {f.emp}
                     </span>
                   </div>
-                  <span
-                    className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/70 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    aria-hidden
-                  />
-                </div>
+                  <div className="p-5 sm:p-6">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <h3 className="text-xl font-semibold">{f.name}</h3>
+                        <p className="mt-1.5 min-h-10 text-sm font-medium text-primary">{f.role}</p>
+                      </div>
+                      <ArrowUpRight aria-hidden className="mt-1 h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary motion-reduce:transform-none" />
+                    </div>
+                    <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-4">
+                      <p className="text-xs text-muted-foreground">School of IT Skills · MSDC</p>
+                      <span className="text-xs font-medium text-foreground">View ID card</span>
+                    </div>
+                  </div>
+                </article>
               </Card3D>
             </a>
           ))}
