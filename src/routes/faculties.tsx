@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
@@ -133,7 +134,7 @@ function Faculties() {
         </Reveal>
 
         <Reveal as="section" className="mx-auto max-w-6xl page-x pb-20">
-          <Card3D className="rounded-[2rem]" intensity={14}>
+          <Card3D className="orbit-border rounded-[2rem]" intensity={14}>
             <div className="glass corner-glow relative overflow-hidden rounded-[2rem] p-8 sm:p-12">
               <div className="aurora-mesh pointer-events-none absolute inset-0 opacity-60" aria-hidden />
               <div className="relative grid gap-10 md:grid-cols-[auto_1fr] md:items-center">
@@ -182,10 +183,15 @@ function Faculties() {
 
       <Reveal as="section" className="mx-auto max-w-6xl page-x pb-20">
         <div className="grid gap-5 md:grid-cols-3">
-          {values.map((v) => (
+          {values.map((v, i) => (
             <div
               key={v.title}
-              className="glow-ring bulge rounded-3xl border border-border bg-card p-7"
+              className="orbit-border bulge rounded-3xl border border-border bg-card p-7"
+              style={{
+                "--orbit-speed": "11s",
+                "--orbit-delay": `${i * -3.6}s`,
+                "--orbit-hue": `${i * 110}deg`,
+              } as CSSProperties}
             >
               <v.icon className="h-5 w-5 text-primary" />
               <h3 className="mt-4 text-lg font-semibold tracking-tight">{v.title}</h3>
@@ -202,17 +208,22 @@ function Faculties() {
           description="Meet the educators bringing experience, care and curiosity to every classroom."
         />
         <div className="mt-10 grid gap-x-7 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {faculty.map((f) => (
+          {faculty.map((f, i) => (
             <a
               key={f.name}
               href={f.link}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`View ${f.name}'s employee card`}
+              style={{
+                "--orbit-speed": "9s",
+                "--orbit-delay": `${-(i % 4) * 2.4}s`,
+                "--orbit-hue": `${(i % 4) * 90}deg`,
+              } as CSSProperties}
               className="group relative block min-w-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
             >
-              <Card3D className="h-full rounded-lg" intensity={4}>
-                <article className="h-full overflow-hidden rounded-lg border border-border bg-card transition-colors duration-300 group-hover:border-primary/40">
+              <Card3D className="orbit-border h-full rounded-lg" intensity={4}>
+                <article className="glare-card h-full overflow-hidden rounded-lg border border-border bg-card transition-colors duration-300 group-hover:border-primary/40">
                   <div className="relative aspect-[4/5] overflow-hidden bg-muted">
                     <img
                       src={f.photo}
@@ -248,7 +259,7 @@ function Faculties() {
       </Reveal>
 
       <Reveal as="section" className="mx-auto max-w-6xl page-x pb-24">
-        <div className="glass corner-glow flex flex-col items-start justify-between gap-6 rounded-3xl p-8 sm:flex-row sm:items-center sm:p-10">
+        <div className="orbit-border glass rounded-3xl">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Want to teach with us?</h2>
             <p className="mt-2 text-sm text-muted-foreground">
