@@ -9,39 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as FacultiesRouteImport } from './routes/faculties'
-import { Route as InternshipsRouteImport } from './routes/internships'
-import { Route as SchoolProgramsRouteImport } from './routes/school-programs'
 import { Route as TallyRouteImport } from './routes/tally'
+import { Route as SchoolProgramsRouteImport } from './routes/school-programs'
+import { Route as InternshipsRouteImport } from './routes/internships'
+import { Route as FacultiesRouteImport } from './routes/faculties'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as CoursesIndexRouteImport } from './routes/courses.index'
 import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FacultiesRoute = FacultiesRouteImport.update({
-  id: '/faculties',
-  path: '/faculties',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InternshipsRoute = InternshipsRouteImport.update({
-  id: '/internships',
-  path: '/internships',
+const TallyRoute = TallyRouteImport.update({
+  id: '/tally',
+  path: '/tally',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SchoolProgramsRoute = SchoolProgramsRouteImport.update({
@@ -49,9 +29,29 @@ const SchoolProgramsRoute = SchoolProgramsRouteImport.update({
   path: '/school-programs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TallyRoute = TallyRouteImport.update({
-  id: '/tally',
-  path: '/tally',
+const InternshipsRoute = InternshipsRouteImport.update({
+  id: '/internships',
+  path: '/internships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FacultiesRoute = FacultiesRouteImport.update({
+  id: '/faculties',
+  path: '/faculties',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoursesIndexRoute = CoursesIndexRouteImport.update({
@@ -149,39 +149,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/faculties': {
-      id: '/faculties'
-      path: '/faculties'
-      fullPath: '/faculties'
-      preLoaderRoute: typeof FacultiesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/internships': {
-      id: '/internships'
-      path: '/internships'
-      fullPath: '/internships'
-      preLoaderRoute: typeof InternshipsRouteImport
+    '/tally': {
+      id: '/tally'
+      path: '/tally'
+      fullPath: '/tally'
+      preLoaderRoute: typeof TallyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/school-programs': {
@@ -191,11 +163,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SchoolProgramsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tally': {
-      id: '/tally'
-      path: '/tally'
-      fullPath: '/tally'
-      preLoaderRoute: typeof TallyRouteImport
+    '/internships': {
+      id: '/internships'
+      path: '/internships'
+      fullPath: '/internships'
+      preLoaderRoute: typeof InternshipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faculties': {
+      id: '/faculties'
+      path: '/faculties'
+      fullPath: '/faculties'
+      preLoaderRoute: typeof FacultiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/courses/': {
