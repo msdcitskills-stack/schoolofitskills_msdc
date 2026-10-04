@@ -737,6 +737,56 @@
   .aurora-mesh { animation: none; }
 }
 
+/* ── Orbit border: a multi-hue comet laps every card ──────────────
+   Each card can offset its phase (--orbit-delay) and shift its hue
+   (--orbit-hue) so a grid of them reads as lights chasing each other
+   around the page. Hover brightens the comet and its glow. */
+@utility orbit-border {
+  position: relative;
+  isolation: isolate;
+  --orbit-speed: 9s;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -1.5px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(
+      from var(--mb-angle) at 50% 50%,
+      transparent 0deg,
+      color-mix(in oklab, var(--color-glow) 90%, white) 22deg,
+      color-mix(in oklab, var(--color-primary) 85%, white) 52deg,
+      color-mix(in oklab, var(--color-accent) 88%, transparent) 84deg,
+      transparent 130deg,
+      color-mix(in oklab, var(--color-primary) 55%, transparent) 215deg,
+      transparent 255deg 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation: mb-rotate var(--orbit-speed) linear infinite;
+    animation-delay: var(--orbit-delay, 0s);
+    filter: hue-rotate(var(--orbit-hue, 0deg));
+    opacity: 0.8;
+    pointer-events: none;
+    transition: opacity 350ms ease, filter 350ms ease;
+  }
+  &::after {
+    padding: 2.5px;
+    filter: blur(12px) saturate(1.45) hue-rotate(var(--orbit-hue, 0deg));
+    opacity: 0.4;
+    z-index: -1;
+  }
+  &:hover::before,
+  &:focus-within::before {
+    opacity: 1;
+    filter: hue-rotate(var(--orbit-hue, 0deg)) saturate(1.35) brightness(1.18);
+  }
+  &:hover::after,
+  &:focus-within::after { opacity: 0.85; }
+}
+
+
 
 
 
@@ -766,9 +816,12 @@
   .moving-border::after,
   .moving-border-outer::before,
   .moving-border-outer::after,
+  .orbit-border::before,
+  .orbit-border::after,
   .text-live { animation: none; }
 
 }
+
 
 /* ---- Smoothness pass ------------------------------------------------ */
 
@@ -780,7 +833,10 @@
   .moving-border::before { animation-duration: 11s; }
   .moving-border-outer::before { animation-duration: 14s; }
   .aurora-mesh { filter: blur(24px); animation-duration: 30s; }
+  .orbit-border::after { display: none; }
+  .orbit-border::before { animation-duration: 16s; }
 }
+
 
 /* Isolate expensive card interiors so their glows never repaint the page.
    Glass surfaces are excluded because navigation menus can extend outside them. */
