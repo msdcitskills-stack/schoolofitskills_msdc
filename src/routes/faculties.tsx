@@ -219,8 +219,11 @@ function Faculties() {
                 "--orbit-speed": "9s",
                 "--orbit-delay": `${-(i % 4) * 2.4}s`,
                 "--orbit-hue": `${(i % 4) * 90}deg`,
+                "--live-delay": `${i * 0.55}s`,
+                "--live-dur": `${5.5 + (i % 3) * 0.9}s`,
+                "--sheen-dur": `${6.5 + (i % 4)}s`,
               } as CSSProperties}
-              className="group relative block min-w-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+              className="group live-float live-aura relative block min-w-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
             >
               <Card3D className="orbit-border h-full rounded-lg" intensity={4}>
                 <article className="glare-card h-full overflow-hidden rounded-lg border border-border bg-card transition-colors duration-300 group-hover:border-primary/40">
@@ -234,14 +237,17 @@ function Faculties() {
                       decoding="async"
                       className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.035] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                     />
-                    <span className="absolute bottom-4 left-4 rounded-md border border-border bg-background/95 px-2.5 py-1.5 font-mono text-xs font-medium text-foreground">
+                    <span className="live-wash" aria-hidden />
+                    <span className="live-sheen" aria-hidden />
+                    <span className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-md border border-border bg-background/95 px-2.5 py-1.5 font-mono text-xs font-medium text-foreground">
+                      <span className="live-twinkle" aria-hidden />
                       {f.emp}
                     </span>
                   </div>
                   <div className="p-5 sm:p-6">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <h3 className="text-xl font-semibold">{f.name}</h3>
+                        <h3 className="live-underline w-fit text-xl font-semibold">{f.name}</h3>
                         <p className="mt-1.5 min-h-10 text-sm font-medium text-primary">{f.role}</p>
                       </div>
                       <ArrowUpRight aria-hidden className="mt-1 h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary motion-reduce:transform-none" />

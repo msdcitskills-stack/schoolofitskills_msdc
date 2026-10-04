@@ -856,3 +856,167 @@
   a:active,
   [role="button"]:active { transform: translateY(0.5px) scale(0.985); }
 }
+
+/* ===== Live card animations (faculties) =====
+   Layered, transform/opacity-only motion so cards feel alive:
+   gentle floating, periodic light sheen across photos, a breathing
+   aura behind each card, and a twinkling badge dot. All staggered
+   per card via --live-delay so the grid ripples instead of syncing. */
+
+@keyframes live-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+@utility live-float {
+  animation: live-float var(--live-dur, 6s) ease-in-out infinite;
+  animation-delay: var(--live-delay, 0s);
+  will-change: transform;
+}
+
+/* Soft breathing aura behind the card */
+@keyframes live-aura {
+  0%, 100% { opacity: 0.35; transform: scale(0.96); }
+  50% { opacity: 0.75; transform: scale(1.04); }
+}
+
+@utility live-aura {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    border-radius: inherit;
+    background: radial-gradient(
+      60% 60% at 50% 40%,
+      color-mix(in oklab, var(--color-primary) 26%, transparent),
+      transparent 70%
+    );
+    filter: blur(18px);
+    opacity: 0.35;
+    z-index: -1;
+    pointer-events: none;
+    animation: live-aura var(--live-dur, 6s) ease-in-out infinite;
+    animation-delay: var(--live-delay, 0s);
+  }
+}
+
+/* Light sheen that periodically sweeps across the photo */
+@keyframes live-sheen {
+  0% { transform: translateX(-130%) skewX(-18deg); opacity: 0; }
+  12% { opacity: 1; }
+  38% { transform: translateX(230%) skewX(-18deg); opacity: 0; }
+  100% { transform: translateX(230%) skewX(-18deg); opacity: 0; }
+}
+
+@utility live-sheen {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  &::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 45%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, white 38%, transparent),
+      transparent
+    );
+    transform: translateX(-130%) skewX(-18deg);
+    animation: live-sheen var(--sheen-dur, 7s) ease-in-out infinite;
+    animation-delay: var(--live-delay, 0s);
+  }
+}
+
+/* Twinkling dot — used on the emp badge */
+@keyframes live-twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+
+@utility live-twinkle {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  box-shadow: 0 0 8px 2px color-mix(in oklab, var(--color-primary) 70%, transparent);
+  animation: live-twinkle 2.4s ease-in-out infinite;
+  animation-delay: var(--live-delay, 0s);
+}
+
+/* Shimmering gradient underline that grows under the name on hover */
+@utility live-underline {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 100%;
+    border-radius: 9999px;
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      color-mix(in oklab, var(--color-primary) 40%, var(--color-accent, var(--color-primary))),
+      var(--color-primary)
+    );
+    background-size: 200% 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .group:hover &::after,
+  .group:focus-visible &::after {
+    transform: scaleX(1);
+    animation: live-shimmer-x 1.6s linear infinite;
+  }
+}
+
+@keyframes live-shimmer-x {
+  from { background-position: 0% 0; }
+  to { background-position: 200% 0; }
+}
+
+/* Photo gradient wash that slowly drifts hue — glamour tint */
+@keyframes live-wash {
+  0%, 100% { opacity: 0.14; }
+  50% { opacity: 0.3; }
+}
+
+@utility live-wash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--color-primary) 30%, transparent),
+    transparent 45%,
+    color-mix(in oklab, var(--color-primary) 22%, transparent)
+  );
+  mix-blend-mode: overlay;
+  animation: live-wash var(--live-dur, 6s) ease-in-out infinite;
+  animation-delay: var(--live-delay, 0s);
+}
+
+/* Keep it calm on touch/small screens and for reduced motion */
+@media (hover: none), (max-width: 768px) {
+  .live-float { animation-duration: 9s; }
+  .live-sheen::after { animation-duration: 10s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-float,
+  .live-aura::before,
+  .live-sheen::after,
+  .live-twinkle,
+  .live-wash {
+    animation: none !important;
+  }
+}
