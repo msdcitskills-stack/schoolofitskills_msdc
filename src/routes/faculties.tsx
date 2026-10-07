@@ -4,6 +4,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { DotBackground } from "@/components/dot-background";
 import { Card3D, Card3DItem } from "@/components/card-3d";
+import rajalaxmiPhoto from "@/assets/faculty/Rajalaxmi.webp.asset.json";
 import swathiPhoto from "@/assets/faculty/Swathi.webp.asset.json";
 import anishaPhoto from "@/assets/faculty/Anisha.webp.asset.json";
 import riyaPhoto from "@/assets/faculty/Riya.webp.asset.json";
@@ -139,9 +140,31 @@ function Faculties() {
               <div className="aurora-mesh pointer-events-none absolute inset-0 opacity-60" aria-hidden />
               <div className="relative grid gap-10 md:grid-cols-[auto_1fr] md:items-center">
                 <Card3DItem z={120} className="mx-auto md:mx-0">
-                  <div className="relative grid h-40 w-40 place-items-center rounded-full bg-secondary text-secondary-foreground shadow-[0_25px_70px_-30px_color-mix(in_oklab,var(--color-primary)_80%,transparent)]">
-                    <span className="text-4xl font-bold tracking-tight">RA</span>
-                    <span className="absolute inset-0 rounded-full border border-border/70" aria-hidden />
+                  <div
+                    className="orbit-border relative rounded-full"
+                    style={{ "--orbit-speed": "8s", "--orbit-hue": "40deg" } as CSSProperties}
+                  >
+                    <div className="live-float group/head relative grid h-44 w-44 place-items-center overflow-hidden rounded-full bg-secondary shadow-[0_25px_70px_-30px_color-mix(in_oklab,var(--color-primary)_80%,transparent)] sm:h-52 sm:w-52">
+                      <img
+                        src={rajalaxmiPhoto.url}
+                        alt="Rajalaxmi Anandan, Centre Head — School of IT Skills, MSDC"
+                        width={420}
+                        height={420}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full scale-[1.02] object-cover object-top transition-transform duration-700 ease-out group-hover/head:scale-[1.07] motion-reduce:transition-none motion-reduce:group-hover/head:scale-100"
+                      />
+                      <span className="live-sheen" aria-hidden />
+                      <span
+                        className="pointer-events-none absolute inset-0 rounded-full"
+                        style={{
+                          boxShadow:
+                            "inset 0 0 0 1px color-mix(in oklab, var(--color-border) 80%, transparent), inset 0 -30px 50px -30px color-mix(in oklab, var(--color-primary) 45%, transparent)",
+                        }}
+                        aria-hidden
+                      />
+                      <span className="live-twinkle absolute right-4 top-4" aria-hidden />
+                    </div>
                   </div>
                 </Card3DItem>
 
