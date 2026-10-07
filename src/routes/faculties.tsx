@@ -112,6 +112,7 @@ const faculty = [
     emp: "MSDC075",
     role: "Skills Trainer",
     link: "https://veetragjainemp-card.vercel.app",
+    frame: "h-[168%] w-[168%]",
   },
   {
     name: "Anusha Naik",
@@ -258,7 +259,7 @@ function Faculties() {
                       height={800}
                       loading="lazy"
                       decoding="async"
-                      className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.035] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                      className={`absolute left-1/2 top-0 -translate-x-1/2 object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.035] motion-reduce:transition-none motion-reduce:group-hover:scale-100 ${f.frame ?? "h-full w-full"}`}
                     />
                     <span className="live-wash" aria-hidden />
                     <span className="live-sheen" aria-hidden />
