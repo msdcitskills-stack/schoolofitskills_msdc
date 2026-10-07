@@ -4,6 +4,7 @@ import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { DotBackground } from "@/components/dot-background";
 import { Card3D, Card3DItem } from "@/components/card-3d";
+import rajalaxmiPhoto from "@/assets/faculty/Rajalaxmi.webp.asset.json";
 import swathiPhoto from "@/assets/faculty/Swathi.webp.asset.json";
 import anishaPhoto from "@/assets/faculty/Anisha.webp.asset.json";
 import riyaPhoto from "@/assets/faculty/Riya.webp.asset.json";
