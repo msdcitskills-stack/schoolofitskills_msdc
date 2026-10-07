@@ -139,7 +139,7 @@ export function getCourseDetail(course: Course): CourseDetail {
     },
     {
       q: "How do I enroll?",
-      a: "Write to msdc.itskills@gmail.com or call +91 91879 74688 and our team will confirm the next batch date and seat availability.",
+      a: "Write to msdc.itskills@gmail.com or call +91 80883 18437 and our team will confirm the next batch date and seat availability.",
     },
   ];
 

@@ -50,8 +50,8 @@ function Contact() {
           <ContactCard
             icon={Phone}
             label="Phone"
-            value="+91 91879 74688"
-            href="tel:+919187974688"
+            value="+91 80883 18437"
+            href="tel:+918088318437"
           />
           <ContactCard
             icon={MapPin}

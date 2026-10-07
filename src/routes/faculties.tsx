@@ -190,10 +190,10 @@ function Faculties() {
                         <Mail className="h-4 w-4" /> Get in touch
                       </Link>
                       <a
-                        href="tel:+919187974688"
+                        href="tel:+918088318437"
                         className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-5 py-2.5 text-sm font-semibold transition-transform hover:scale-105"
                       >
-                        <Phone className="h-4 w-4" /> +91 91879 74688
+                        <Phone className="h-4 w-4" /> +91 80883 18437
                       </a>
                     </div>
                   </div>
