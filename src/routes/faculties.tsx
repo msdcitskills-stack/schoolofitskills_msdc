@@ -144,9 +144,9 @@ function Faculties() {
                     className="orbit-border relative rounded-full"
                     style={{ "--orbit-speed": "8s", "--orbit-hue": "40deg" } as CSSProperties}
                   >
-                    <div className="live-float relative grid h-44 w-44 place-items-center overflow-hidden rounded-full bg-secondary shadow-[0_25px_70px_-30px_color-mix(in_oklab,var(--color-primary)_80%,transparent)] sm:h-52 sm:w-52">
+                    <div className="live-float group/head relative grid h-44 w-44 place-items-center overflow-hidden rounded-full bg-secondary shadow-[0_25px_70px_-30px_color-mix(in_oklab,var(--color-primary)_80%,transparent)] sm:h-52 sm:w-52">
                       <img
-                        src={rajanmiUrl}
+                        src={rajalaxmiPhoto.url}
                         alt="Rajalaxmi Anandan, Centre Head — School of IT Skills, MSDC"
                         width={420}
                         height={420}
