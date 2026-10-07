@@ -58,10 +58,10 @@ export function SiteFooter() {
             </li>
             <li>
               <a
-                href="tel:+919187974688"
+                href="tel:+918088318437"
                 className="inline-flex items-center gap-2 hover:text-primary"
               >
-                <Phone className="h-3.5 w-3.5" /> +91 91879 74688
+                <Phone className="h-3.5 w-3.5" /> +91 80883 18437
               </a>
             </li>
             <li>

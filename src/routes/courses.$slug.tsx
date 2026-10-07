@@ -159,8 +159,8 @@ function CoursePage() {
                 Enroll now <ArrowRight className="h-4 w-4" />
               </MagneticButton>
             </a>
-            <a href="tel:+919187974688" className="story-link text-sm font-semibold">
-              Call +91 91879 74688
+            <a href="tel:+918088318437" className="story-link text-sm font-semibold">
+              Call +91 80883 18437
             </a>
           </div>
         </Reveal>
@@ -380,10 +380,10 @@ function CoursePage() {
                 <Mail className="h-3.5 w-3.5" /> msdc.itskills@gmail.com
               </a>
               <a
-                href="tel:+919187974688"
+                href="tel:+918088318437"
                 className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
               >
-                <Phone className="h-3.5 w-3.5" /> +91 91879 74688
+                <Phone className="h-3.5 w-3.5" /> +91 80883 18437
               </a>
             </div>
           </div>
