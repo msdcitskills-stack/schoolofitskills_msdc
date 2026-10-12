@@ -13,6 +13,7 @@ import puneethPhoto from "@/assets/faculty/Puneeth.webp.asset.json";
 import ananyaPhoto from "@/assets/faculty/Ananya.webp.asset.json";
 import veetragPhoto from "@/assets/faculty/Veetrag.jpg.asset.json";
 import anushaPhoto from "@/assets/faculty/Anusha.webp.asset.json";
+import anuPhoto from "@/assets/faculty/Anu.jpg.asset.json";
 import {
   Mail,
   Phone,
@@ -63,7 +64,16 @@ const values = [
   },
 ];
 
-const faculty = [
+type FacultyMember = {
+  name: string;
+  photo: string;
+  emp: string;
+  role: string;
+  link?: string;
+  frame?: string;
+};
+
+const faculty: FacultyMember[] = [
   {
     name: "Swathi K",
     photo: swathiPhoto.url,
@@ -120,6 +130,12 @@ const faculty = [
     emp: "MSDC077",
     role: "Skills Trainer",
     link: "https://anushanaikemp-card.vercel.app/",
+  },
+  {
+    name: "Anu K V",
+    photo: anuPhoto.url,
+    emp: "MSDC000",
+    role: "Skills Trainer",
   },
 ];
 
