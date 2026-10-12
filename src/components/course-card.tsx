@@ -9,7 +9,7 @@ export function CourseCard({ course, index = 0 }: { course: Course; index?: numb
       params={{ slug: course.slug }}
       target="_blank"
       rel="noopener"
-      className="group corner-glow glare-card glow-ring bulge notch relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 text-card-foreground"
+      className="group course-interaction glare-card notch relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 text-card-foreground"
       style={{ animationDelay: `${index * 40}ms` }}
     >
       <div className="relative z-10 flex items-start justify-between gap-3">
@@ -23,12 +23,12 @@ export function CourseCard({ course, index = 0 }: { course: Course; index?: numb
             </span>
           ))}
         </div>
-        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary text-secondary-foreground transition-transform duration-300 group-hover:rotate-45">
+        <span className="course-arrow grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary text-secondary-foreground transition-transform duration-300 motion-reduce:transition-none">
           <ArrowUpRight className="h-4 w-4" />
         </span>
       </div>
 
-      <h3 className="relative z-10 text-balance text-lg font-bold leading-snug tracking-tight">
+      <h3 className="live-underline relative z-10 w-fit text-balance text-lg font-bold leading-snug tracking-tight">
         {course.title}
       </h3>
       <p className="relative z-10 line-clamp-2 text-sm text-muted-foreground">

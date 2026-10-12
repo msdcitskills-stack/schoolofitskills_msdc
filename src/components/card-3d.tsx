@@ -18,6 +18,7 @@ export function Card3D({
   const enabled = useRef(false);
   const frame = useRef(0);
   const next = useRef({ x: 0, y: 0 });
+  const bounds = useRef<DOMRect | null>(null);
 
   useEffect(() => {
     enabled.current =
@@ -31,8 +32,7 @@ export function Card3D({
     const el = ref.current;
     if (!el) return;
     const { x, y } = next.current;
-    el.style.transform = `rotateY(${x * intensity}deg) rotateX(${-y * intensity}deg) translateZ(40px) scale(1.05)`;
-    el.style.boxShadow = `${-x * 60}px ${-y * 60 + 30}px 70px -30px rgba(0,0,0,0.45)`;
+    el.style.transform = `rotateY(${x * intensity}deg) rotateX(${-y * intensity}deg) translateZ(12px) scale(1.015)`;
     el.style.setProperty("--mx", `${(x + 0.5) * 100}%`);
     el.style.setProperty("--my", `${(y + 0.5) * 100}%`);
   };
@@ -41,23 +41,24 @@ export function Card3D({
     if (!enabled.current) return;
     const el = ref.current;
     if (!el) return;
-    const rect = el.getBoundingClientRect();
+    const rect = bounds.current;
+    if (!rect) return;
     next.current = {
-      x: (e.clientX - rect.left) / rect.width - 0.5,
-      y: (e.clientY - rect.top) / rect.height - 0.5,
+      x: Math.max(-0.5, Math.min(0.5, (e.clientX - rect.left) / rect.width - 0.5)),
+      y: Math.max(-0.5, Math.min(0.5, (e.clientY - rect.top) / rect.height - 0.5)),
     };
     if (!frame.current) frame.current = requestAnimationFrame(apply);
   };
 
   const reset = () => {
     setHovered(false);
+    bounds.current = null;
     if (frame.current) {
       cancelAnimationFrame(frame.current);
       frame.current = 0;
     }
     if (ref.current) {
       ref.current.style.transform = "rotateY(0deg) rotateX(0deg) translateZ(0px) scale(1)";
-      ref.current.style.boxShadow = "none";
     }
   };
 
@@ -66,10 +67,14 @@ export function Card3D({
       <Card3DContext.Provider value={hovered}>
         <div
           ref={ref}
-          onMouseEnter={() => setHovered(true)}
+          onMouseEnter={() => {
+            if (!enabled.current) return;
+            bounds.current = ref.current?.parentElement?.getBoundingClientRect() ?? null;
+            setHovered(true);
+          }}
           onMouseMove={handleMove}
           onMouseLeave={reset}
-          className="relative h-full w-full transition-transform duration-200 ease-out [transform-style:preserve-3d]"
+          className="relative h-full w-full transition-transform duration-300 ease-out [transform-style:preserve-3d]"
         >
           {children}
         </div>

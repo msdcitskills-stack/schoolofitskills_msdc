@@ -18,6 +18,7 @@ import { SiteFooter } from "../components/site-footer";
 import { ThemeProvider } from "../components/theme-provider";
 import { ScrollProgress } from "../components/scroll-progress";
 import { TracingBeam } from "../components/tracing-beam";
+import { MotionManager } from "../components/motion-manager";
 
 
 function NotFoundComponent() {
@@ -131,6 +132,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
+        <MotionManager />
         <ScrollProgress />
         <TracingBeam />
 
