@@ -12,3 +12,4 @@
 - Keep the floating navigation's active and hover highlight as one measured element inside the links list, so transitions glide without changing link geometry or theme controls.
 
 - Faculty portraits use CDN asset pointers and consistent, lazy-loaded portrait frames to keep the directory lightweight and visually stable.
+- Keep native wheel and touch scrolling; the shared motion manager pauses offscreen decorations and paint-heavy effects during scrolling to preserve the frame budget.

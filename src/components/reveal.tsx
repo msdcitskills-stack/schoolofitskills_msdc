@@ -75,8 +75,8 @@ export function Reveal({
   className = "",
   direction = "up",
   delay = 0,
-  duration = 700,
-  blur = true,
+  duration = 550,
+  blur = false,
 }: {
   children: ReactNode;
   as?: ElementType;
@@ -181,7 +181,9 @@ export function Parallax({
     const unsubscribe = onScrollFrame(({ height }) => {
       if (!visible) return;
       const rect = el.getBoundingClientRect();
-      const progress = (rect.top + rect.height / 2) / height - 0.5;
+      // Subtract our own transform so it cannot feed back into the next frame.
+      const offset = Number.isFinite(lastY) ? lastY : 0;
+      const progress = (rect.top - offset + rect.height / 2) / height - 0.5;
       const y = Math.round(-progress * strength * 10) / 10;
       if (y === lastY) return;
       lastY = y;
@@ -195,7 +197,7 @@ export function Parallax({
   }, [strength]);
 
   return (
-    <div ref={ref} className={`will-change-transform ${className}`}>
+    <div ref={ref} className={className}>
       {children}
     </div>
   );

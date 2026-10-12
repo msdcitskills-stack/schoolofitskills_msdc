@@ -102,6 +102,8 @@
   --input: oklch(0.9 0.02 80);
   --ring: oklch(0.82 0.17 88);
   --glow: oklch(0.85 0.17 88);
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-interactive: 0 12px 32px -18px color-mix(in oklab, var(--foreground) 28%, transparent);
 }
 
 /* Theme: Midnight indigo */
@@ -1019,4 +1021,45 @@
   .live-wash {
     animation: none !important;
   }
+}
+
+/* Keep decorative animation off the scrolling frame budget. */
+[data-motion-paused],
+[data-motion-paused]::before,
+[data-motion-paused]::after,
+html[data-motion-hidden] *,
+html[data-motion-hidden] *::before,
+html[data-motion-hidden] *::after {
+  animation-play-state: paused !important;
+}
+html[data-scrolling] :is(.orbit-border, .moving-border, .moving-border-outer)::before,
+html[data-scrolling] :is(.orbit-border, .moving-border, .moving-border-outer)::after,
+html[data-scrolling] :is(.live-float, .live-wash, .text-live, .aurora-mesh),
+html[data-scrolling] .live-aura::before,
+html[data-scrolling] .live-sheen::after {
+  animation-play-state: paused !important;
+}
+
+/* Intentional, small feedback: no geometry changes or pointer-following paint. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .course-interaction {
+    transition: transform 320ms var(--motion-ease), border-color 220ms ease;
+  }
+  .course-interaction:is(:hover, :focus-visible) {
+    transform: translate3d(0, -3px, 0);
+    border-color: var(--color-primary);
+  }
+  .course-interaction:is(:hover, :focus-visible) .course-arrow {
+    transform: translate3d(2px, -2px, 0);
+  }
+  .course-interaction:is(:hover, :focus-visible) h3::after {
+    transform: scaleX(1);
+  }
+}
+.course-interaction:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 4px;
+}
+@media (pointer: coarse) {
+  .live-float { animation: none; will-change: auto; }
 }
