@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 
 export function MagneticButton({
   children,
@@ -20,8 +21,27 @@ export function MagneticButton({
   const pos = useRef({ x: 0, y: 0 });
   const vel = useRef({ x: 0, y: 0 });
   const raf = useRef<number | null>(null);
+  const startRef = useRef<(() => void) | null>(null);
+  const enabled = useRef(false);
+  const bounds = useRef<DOMRect | null>(null);
 
   useEffect(() => {
+    const pointer = window.matchMedia("(pointer: fine)");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => {
+      enabled.current = pointer.matches && !reduced.matches;
+      if (!enabled.current) {
+        if (raf.current !== null) cancelAnimationFrame(raf.current);
+        raf.current = null;
+        target.current = { x: 0, y: 0 };
+        pos.current = { x: 0, y: 0 };
+        vel.current = { x: 0, y: 0 };
+        if (btnRef.current) btnRef.current.style.transform = "";
+      }
+    };
+    update();
+    pointer.addEventListener("change", update);
+    reduced.addEventListener("change", update);
     const stiffness = 0.14;
     const damping = 0.72;
 
@@ -61,23 +81,25 @@ export function MagneticButton({
       if (raf.current == null) raf.current = requestAnimationFrame(tick);
     };
 
-    (wrapRef.current as HTMLSpanElement & { __start?: () => void }).__start = start;
+    startRef.current = start;
 
     return () => {
       if (raf.current != null) cancelAnimationFrame(raf.current);
       raf.current = null;
+      startRef.current = null;
+      pointer.removeEventListener("change", update);
+      reduced.removeEventListener("change", update);
     };
   }, []);
 
   const kick = () => {
-    const el = wrapRef.current as (HTMLSpanElement & { __start?: () => void }) | null;
-    el?.__start?.();
+    if (enabled.current) startRef.current?.();
   };
 
   const onMove = (e: React.MouseEvent<HTMLSpanElement>) => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
+    if (!enabled.current) return;
+    const rect = bounds.current;
+    if (!rect) return;
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
     target.current = {
@@ -88,6 +110,7 @@ export function MagneticButton({
   };
 
   const onLeave = () => {
+    bounds.current = null;
     target.current = { x: 0, y: 0 };
     kick();
   };
@@ -95,6 +118,9 @@ export function MagneticButton({
   return (
     <span
       ref={wrapRef}
+      onMouseEnter={() => {
+        bounds.current = wrapRef.current?.getBoundingClientRect() ?? null;
+      }}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className="relative inline-flex isolate p-2"
@@ -105,13 +131,15 @@ export function MagneticButton({
           className="pointer-events-none absolute inset-2 -z-10 translate-x-2 translate-y-2 rounded-full border border-dashed border-border bg-muted/60"
         />
       )}
-      <button
+      <Button
         ref={btnRef}
-        className={`relative inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-secondary-foreground shadow-lg transition-[box-shadow,filter] duration-300 will-change-transform hover:shadow-[0_20px_50px_-15px_color-mix(in_oklab,var(--color-glow)_70%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${className}`}
+        variant="secondary"
+        type="button"
+        className={`relative h-auto rounded-full px-6 py-3 text-sm font-semibold shadow-lg transition-[box-shadow,filter] duration-300 hover:shadow-(--shadow-interactive) focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${className}`}
         {...rest}
       >
         {children}
-      </button>
+      </Button>
     </span>
   );
 }
