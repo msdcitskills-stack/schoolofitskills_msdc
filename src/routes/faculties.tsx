@@ -232,23 +232,18 @@ function Faculties() {
           description="Meet the educators bringing experience, care and curiosity to every classroom."
         />
         <div className="mt-10 grid gap-x-7 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {faculty.map((f, i) => (
-            <a
-              key={f.name}
-              href={f.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`View ${f.name}'s employee card`}
-              style={{
-                "--orbit-speed": "9s",
-                "--orbit-delay": `${-(i % 4) * 2.4}s`,
-                "--orbit-hue": `${(i % 4) * 90}deg`,
-                "--live-delay": `${i * 0.55}s`,
-                "--live-dur": `${5.5 + (i % 3) * 0.9}s`,
-                "--sheen-dur": `${6.5 + (i % 4)}s`,
-              } as CSSProperties}
-              className="group live-float live-aura relative block min-w-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-            >
+          {faculty.map((f, i) => {
+            const style = {
+              "--orbit-speed": "9s",
+              "--orbit-delay": `${-(i % 4) * 2.4}s`,
+              "--orbit-hue": `${(i % 4) * 90}deg`,
+              "--live-delay": `${i * 0.55}s`,
+              "--live-dur": `${5.5 + (i % 3) * 0.9}s`,
+              "--sheen-dur": `${6.5 + (i % 4)}s`,
+            } as CSSProperties;
+            const className =
+              "group live-float live-aura relative block min-w-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background";
+            const card = (
               <Card3D className="orbit-border h-full rounded-lg" intensity={4}>
                 <article className="glare-card h-full overflow-hidden rounded-lg border border-border bg-card transition-colors duration-300 group-hover:border-primary/40">
                   <div className="relative aspect-[4/5] overflow-hidden bg-muted">
@@ -274,17 +269,38 @@ function Faculties() {
                         <h3 className="live-underline w-fit text-xl font-semibold">{f.name}</h3>
                         <p className="mt-1.5 min-h-10 text-sm font-medium text-primary">{f.role}</p>
                       </div>
-                      <ArrowUpRight aria-hidden className="mt-1 h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary motion-reduce:transform-none" />
+                      {f.link ? (
+                        <ArrowUpRight aria-hidden className="mt-1 h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary motion-reduce:transform-none" />
+                      ) : null}
                     </div>
                     <div className="mt-3 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-4">
                       <p className="text-xs text-muted-foreground">School of IT Skills · MSDC</p>
-                      <span className="text-xs font-medium text-foreground">View ID card</span>
+                      <span className="text-xs font-medium text-foreground">
+                        {f.link ? "View ID card" : "ID card coming soon"}
+                      </span>
                     </div>
                   </div>
                 </article>
               </Card3D>
-            </a>
-          ))}
+            );
+            return f.link ? (
+              <a
+                key={f.name}
+                href={f.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View ${f.name}'s employee card`}
+                style={style}
+                className={className}
+              >
+                {card}
+              </a>
+            ) : (
+              <div key={f.name} style={style} className={className}>
+                {card}
+              </div>
+            );
+          })}
         </div>
       </Reveal>
 
