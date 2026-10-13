@@ -13,7 +13,7 @@ export function CourseCard({ course, index = 0 }: { course: Course; index?: numb
       style={{ animationDelay: `${index * 40}ms` }}
     >
       <div className="relative z-10 flex items-start justify-between gap-3">
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex min-h-[22px] flex-wrap items-center gap-1.5">
           {(course.tags ?? []).slice(0, 3).map((t) => (
             <span
               key={t}
@@ -28,7 +28,7 @@ export function CourseCard({ course, index = 0 }: { course: Course; index?: numb
         </span>
       </div>
 
-      <h3 className="live-underline relative z-10 w-fit text-balance text-lg font-bold leading-snug tracking-tight">
+      <h3 className="live-underline relative z-10 w-fit line-clamp-2 min-h-[3.4rem] text-balance text-lg font-bold leading-snug tracking-tight">
         {course.title}
       </h3>
       <p className="relative z-10 line-clamp-2 text-sm text-muted-foreground">
