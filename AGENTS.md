@@ -13,3 +13,4 @@
 
 - Faculty portraits use CDN asset pointers and consistent, lazy-loaded portrait frames to keep the directory lightweight and visually stable.
 - Keep native wheel and touch scrolling; the shared motion manager pauses offscreen decorations and paint-heavy effects during scrolling to preserve the frame budget.
+- Keep pathway card decoration CSS-only and registered with the shared motion manager so card interactions do not add scrolling listeners or animation loops.
