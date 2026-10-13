@@ -9,15 +9,15 @@ export function CourseCard({ course, index = 0 }: { course: Course; index?: numb
       params={{ slug: course.slug }}
       target="_blank"
       rel="noopener"
-      className="group course-interaction glare-card notch relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 text-card-foreground"
+      className="group course-interaction glare-card notch relative flex h-full flex-col gap-4 rounded-2xl border border-border bg-card p-6 text-card-foreground"
       style={{ animationDelay: `${index * 40}ms` }}
     >
       <div className="relative z-10 flex items-start justify-between gap-3">
-        <div className="flex flex-wrap gap-1.5">
-          {(course.tags ?? []).slice(0, 3).map((t) => (
+        <div className="flex h-[22px] flex-nowrap items-center gap-1.5 overflow-hidden whitespace-nowrap">
+          {(course.tags ?? []).slice(0, 2).map((t) => (
             <span
               key={t}
-              className="rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground"
+              className="max-w-[110px] shrink-0 truncate rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground"
             >
               {t}
             </span>
@@ -28,7 +28,7 @@ export function CourseCard({ course, index = 0 }: { course: Course; index?: numb
         </span>
       </div>
 
-      <h3 className="live-underline relative z-10 w-fit text-balance text-lg font-bold leading-snug tracking-tight">
+      <h3 className="live-underline relative z-10 w-fit line-clamp-2 min-h-[3.4rem] text-balance text-lg font-bold leading-snug tracking-tight">
         {course.title}
       </h3>
       <p className="relative z-10 line-clamp-2 text-sm text-muted-foreground">
