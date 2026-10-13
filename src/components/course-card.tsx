@@ -9,7 +9,7 @@ export function CourseCard({ course, index = 0 }: { course: Course; index?: numb
       params={{ slug: course.slug }}
       target="_blank"
       rel="noopener"
-      className="group course-interaction glare-card notch relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 text-card-foreground"
+      className="group course-interaction glare-card notch relative flex h-full flex-col gap-4 rounded-2xl border border-border bg-card p-6 text-card-foreground"
       style={{ animationDelay: `${index * 40}ms` }}
     >
       <div className="relative z-10 flex items-start justify-between gap-3">
