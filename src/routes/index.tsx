@@ -376,10 +376,10 @@ function BentoCard({
   gradient?: string;
 }) {
   return (
-    <Card3D className={className} intensity={large ? 8 : 12}>
+    <Card3D className={className} intensity={large ? 5 : 7}>
       <Link
         to={to}
-        className={`group corner-glow glare-card glow-ring relative flex h-full flex-col justify-between overflow-hidden rounded-3xl border border-border bg-card p-6 text-card-foreground shadow-sm transition-shadow duration-300 hover:shadow-2xl`}
+        className="pathway-card group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-card p-6 text-card-foreground shadow-sm"
       >
         <div
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -390,11 +390,11 @@ function BentoCard({
           aria-hidden
         />
         <div
-          className={`grainient ${gradient} pointer-events-none absolute inset-0`}
+          className={`grainient ${gradient} pathway-wash pointer-events-none absolute inset-0`}
           aria-hidden
         />
         <Card3DItem z={50} className="relative z-10 flex items-center justify-between">
-          <span className="grid h-11 w-11 place-items-center rounded-2xl bg-secondary text-secondary-foreground transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+          <span className="pathway-icon grid h-11 w-11 place-items-center rounded-2xl bg-secondary text-secondary-foreground">
             {icon}
           </span>
           <span className="rounded-full bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">
@@ -412,9 +412,9 @@ function BentoCard({
           <p className={`mt-2 text-sm text-muted-foreground ${large ? "max-w-md" : ""}`}>
             {desc}
           </p>
-          <div className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-primary opacity-0 transition-all duration-300 group-hover:opacity-100">
+          <div className="pathway-explore mt-6 inline-flex items-center gap-2 text-sm font-semibold text-foreground">
             Explore
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="pathway-arrow h-3.5 w-3.5" />
           </div>
         </Card3DItem>
       </Link>

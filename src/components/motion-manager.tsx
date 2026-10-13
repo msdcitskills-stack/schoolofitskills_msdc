@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { onScrollFrame } from "@/lib/scroll-ticker";
 
-const decorativeTargets = ".orbit-border, .moving-border, .moving-border-outer, .aurora-mesh, .live-float, .live-aura, .live-sheen, .live-wash, .live-twinkle, .text-live, .animate-marquee";
+const decorativeTargets = ".orbit-border, .moving-border, .moving-border-outer, .pathway-card, .aurora-mesh, .live-float, .live-aura, .live-sheen, .live-wash, .live-twinkle, .text-live, .animate-marquee";
 
 /**
  * Only visible decorations need to animate; native scrolling remains untouched.
