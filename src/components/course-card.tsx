@@ -13,11 +13,11 @@ export function CourseCard({ course, index = 0 }: { course: Course; index?: numb
       style={{ animationDelay: `${index * 40}ms` }}
     >
       <div className="relative z-10 flex items-start justify-between gap-3">
-        <div className="flex min-h-[22px] flex-wrap items-center gap-1.5">
-          {(course.tags ?? []).slice(0, 3).map((t) => (
+        <div className="flex h-[22px] flex-nowrap items-center gap-1.5 overflow-hidden whitespace-nowrap">
+          {(course.tags ?? []).slice(0, 2).map((t) => (
             <span
               key={t}
-              className="rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground"
+              className="max-w-[110px] shrink-0 truncate rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground"
             >
               {t}
             </span>
