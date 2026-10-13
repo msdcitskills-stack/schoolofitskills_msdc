@@ -3,4 +3,4 @@
 - [x] Refine card, button, and reveal feedback without changing page layout.
 - [x] Verify browsing, theme selection, motion preferences, and page errors.
 - [x] Add Anu K V (MSDC000, Skills Trainer) to the faculty directory with portrait.
-- [ ] Add dotted pathway borders and polished interactions; verify navigation and motion fallbacks.
+- [x] Add dotted pathway borders and polished interactions; verify navigation and motion fallbacks.
