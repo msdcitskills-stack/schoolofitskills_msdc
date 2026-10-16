@@ -104,6 +104,38 @@
   --glow: oklch(0.85 0.17 88);
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --shadow-interactive: 0 12px 32px -18px color-mix(in oklab, var(--foreground) 28%, transparent);
+  --tap-feedback-edge: color-mix(in oklab, var(--primary) 75%, var(--foreground));
+  --tap-feedback-wash: color-mix(in oklab, var(--primary) 14%, transparent);
+}
+
+/* Only activated controls get a bounded ripple; no idle animation or tracking. */
+.tap-feedback-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 11000;
+  pointer-events: none;
+  overflow: hidden;
+}
+.tap-feedback-frame {
+  position: absolute;
+  overflow: hidden;
+  pointer-events: none;
+}
+.tap-feedback-wave {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--tap-feedback-edge);
+  background: var(--tap-feedback-wash);
+  animation: tap-feedback-expand 620ms var(--motion-ease) both;
+  will-change: transform, opacity;
+}
+@keyframes tap-feedback-expand {
+  0% { transform: scale(0.04); opacity: 0.65; }
+  45% { opacity: 0.4; }
+  100% { transform: scale(1); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tap-feedback-layer { display: none; }
 }
 
 /* Theme: Midnight indigo */

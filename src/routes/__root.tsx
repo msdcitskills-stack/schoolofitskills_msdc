@@ -19,6 +19,7 @@ import { ThemeProvider } from "../components/theme-provider";
 import { ScrollProgress } from "../components/scroll-progress";
 import { TracingBeam } from "../components/tracing-beam";
 import { MotionManager } from "../components/motion-manager";
+import { TapFeedback } from "../components/tap-feedback";
 
 
 function NotFoundComponent() {
@@ -133,6 +134,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <MotionManager />
+        <TapFeedback />
         <ScrollProgress />
         <TracingBeam />
 
