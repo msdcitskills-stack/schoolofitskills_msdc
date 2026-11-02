@@ -18,6 +18,7 @@ import { SiteFooter } from "../components/site-footer";
 import { ThemeProvider } from "../components/theme-provider";
 import { ScrollProgress } from "../components/scroll-progress";
 import { TracingBeam } from "../components/tracing-beam";
+import { GlassEdge } from "../components/glass-edge";
 import { MotionManager } from "../components/motion-manager";
 import { TapFeedback } from "../components/tap-feedback";
 
@@ -137,6 +138,7 @@ function RootComponent() {
         <TapFeedback />
         <ScrollProgress />
         <TracingBeam />
+        <GlassEdge />
 
         <FloatingNav />
         <main className="pt-24">
