@@ -1201,7 +1201,7 @@ html.magnet-scroll {
 html.magnet-scroll main > section,
 html.magnet-scroll main > div > section {
   scroll-snap-align: start;
-  scroll-margin-top: 5.75rem;
+  /* Vertical resting offset comes from html's existing scroll-padding-top. */
 }
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   html.magnet-scroll { scroll-snap-type: none; }
