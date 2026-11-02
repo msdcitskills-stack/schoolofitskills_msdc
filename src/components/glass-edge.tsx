@@ -14,7 +14,7 @@ export function GlassEdge() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    let shown = null;
+    let shown: boolean | null = null;
     return onScrollFrame(({ y }) => {
       const next = y > 28;
       if (next === shown) return;
