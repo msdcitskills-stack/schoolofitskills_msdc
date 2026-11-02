@@ -13,6 +13,15 @@ const decorativeTargets = ".orbit-border, .moving-border, .moving-border-outer, 
 export function MotionManager() {
   useEffect(() => {
     const root = document.documentElement;
+
+    // Magnetic section hold: gentle proximity snap on precise pointers only.
+    if (
+      window.matchMedia("(pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      root.classList.add("magnet-scroll");
+    }
+
     const tracked = new Set<Element>();
     const queued = new Map<Element, boolean>();
     let ready = false;
@@ -86,6 +95,7 @@ export function MotionManager() {
       mutations.disconnect();
       observer.disconnect();
       document.removeEventListener("visibilitychange", visibility);
+      root.classList.remove("magnet-scroll");
       tracked.forEach((element) => element.removeAttribute("data-motion-paused"));
       root.removeAttribute("data-scrolling");
       root.removeAttribute("data-motion-hidden");

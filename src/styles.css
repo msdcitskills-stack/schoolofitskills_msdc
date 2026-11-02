@@ -1146,3 +1146,63 @@ html[data-scrolling] .live-sheen::after {
 @media (pointer: coarse) {
   .live-float { animation: none; will-change: auto; }
 }
+
+/* ===== Magnetic scroll + glass shelf ===== */
+
+/* Frosted glass edge pinned to the bottom of the viewport; rises while the
+   page scrolls and stays as the surface the magnetic snap settles against. */
+.glass-edge {
+  height: 76px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate3d(0, 100%, 0);
+  transition:
+    opacity 420ms var(--motion-ease),
+    transform 480ms var(--motion-ease),
+    visibility 0s linear 480ms;
+  background: color-mix(in oklab, var(--color-background) 52%, transparent);
+  backdrop-filter: blur(14px) saturate(150%);
+  mask-image: linear-gradient(to top, black 58%, transparent);
+}
+.glass-edge::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--color-primary) 55%, transparent) 25%,
+    var(--color-glow) 50%,
+    color-mix(in oklab, var(--color-accent) 55%, transparent) 75%,
+    transparent
+  );
+  opacity: 0.75;
+}
+.glass-edge[data-shown] {
+  visibility: visible;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: opacity 420ms var(--motion-ease), transform 480ms var(--motion-ease);
+}
+@media (max-width: 768px) {
+  .glass-edge {
+    height: 58px;
+    backdrop-filter: blur(9px) saturate(135%);
+  }
+}
+
+/* Magnetic section hold: gentle "proximity" pull so pages settle with a soft
+   hold at each section boundary. Precise pointers only — native wheel and
+   touch scrolling, and reduced-motion, stay untouched. */
+html.magnet-scroll {
+  scroll-snap-type: y proximity;
+}
+html.magnet-scroll main > section,
+html.magnet-scroll main > div > section {
+  scroll-snap-align: start;
+  /* Vertical resting offset comes from html's existing scroll-padding-top. */
+}
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  html.magnet-scroll { scroll-snap-type: none; }
+}
