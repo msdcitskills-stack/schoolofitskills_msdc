@@ -6,7 +6,6 @@ import { DotBackground } from "@/components/dot-background";
 import { Card3D, Card3DItem } from "@/components/card-3d";
 import rajalaxmiPhoto from "@/assets/faculty/Rajalaxmi.webp.asset.json";
 import swathiPhoto from "@/assets/faculty/Swathi.webp.asset.json";
-import anishaPhoto from "@/assets/faculty/Anisha.webp.asset.json";
 import riyaPhoto from "@/assets/faculty/Riya.webp.asset.json";
 import shubharakshaPhoto from "@/assets/faculty/Shubharaksha.webp.asset.json";
 import puneethPhoto from "@/assets/faculty/Puneeth.webp.asset.json";
@@ -80,13 +79,6 @@ const faculty: FacultyMember[] = [
     emp: "MSDC074",
     role: "Skill Trainer",
     link: "https://swathiemp-card.vercel.app",
-  },
-  {
-    name: "Anisha Shenoy",
-    photo: anishaPhoto.url,
-    emp: "MSDC053",
-    role: "Counsellor & Tally Trainer",
-    link: "https://anishashenoyemp-card.vercel.app/",
   },
   {
     name: "Riya",
