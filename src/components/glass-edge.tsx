@@ -15,13 +15,43 @@ export function GlassEdge() {
     const el = ref.current;
     if (!el) return;
     let shown: boolean | null = null;
-    return onScrollFrame(({ y }) => {
+    let holdTimer: ReturnType<typeof setTimeout> | undefined;
+    let releaseTimer: ReturnType<typeof setTimeout> | undefined;
+    const unsubscribe = onScrollFrame(({ y }) => {
       const next = y > 28;
-      if (next === shown) return;
-      shown = next;
-      if (next) el.setAttribute("data-shown", "");
-      else el.removeAttribute("data-shown");
+      if (next !== shown) {
+        shown = next;
+        if (next) el.setAttribute("data-shown", "");
+        else {
+          el.removeAttribute("data-shown");
+          el.removeAttribute("data-moving");
+          el.removeAttribute("data-holding");
+          el.removeAttribute("data-releasing");
+          clearTimeout(holdTimer);
+          clearTimeout(releaseTimer);
+        }
+      }
+      if (!next) return;
+
+      el.setAttribute("data-moving", "");
+      if (el.hasAttribute("data-holding")) {
+        el.removeAttribute("data-holding");
+        el.setAttribute("data-releasing", "");
+        clearTimeout(releaseTimer);
+        releaseTimer = setTimeout(() => el.removeAttribute("data-releasing"), 360);
+      }
+      clearTimeout(holdTimer);
+      holdTimer = setTimeout(() => {
+        el.removeAttribute("data-moving");
+        el.removeAttribute("data-releasing");
+        el.setAttribute("data-holding", "");
+      }, 180);
     });
+    return () => {
+      unsubscribe();
+      clearTimeout(holdTimer);
+      clearTimeout(releaseTimer);
+    };
   }, []);
 
   return (

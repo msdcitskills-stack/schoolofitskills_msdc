@@ -1152,43 +1152,104 @@ html[data-scrolling] .live-sheen::after {
 /* Frosted glass edge pinned to the bottom of the viewport; rises while the
    page scrolls and stays as the surface the magnetic snap settles against. */
 .glass-edge {
-  height: 76px;
+  height: 96px;
   visibility: hidden;
   opacity: 0;
   transform: translate3d(0, 100%, 0);
   transition:
-    opacity 420ms var(--motion-ease),
-    transform 480ms var(--motion-ease),
-    visibility 0s linear 480ms;
-  background: color-mix(in oklab, var(--color-background) 52%, transparent);
-  backdrop-filter: blur(14px) saturate(150%);
-  mask-image: linear-gradient(to top, black 58%, transparent);
+    opacity 360ms var(--motion-ease),
+    transform 620ms var(--motion-ease),
+    height 520ms var(--motion-ease),
+    visibility 0s linear 620ms;
+  background: linear-gradient(
+    to top,
+    color-mix(in oklab, var(--color-background) 78%, transparent),
+    color-mix(in oklab, var(--color-background) 42%, transparent) 58%,
+    transparent
+  );
+  backdrop-filter: blur(18px) saturate(165%);
+  mask-image: linear-gradient(to top, black 42%, transparent);
+  will-change: transform, opacity;
 }
 .glass-edge::before {
   content: "";
   position: absolute;
-  inset: auto 0 0 0;
-  height: 1px;
+  inset: auto 8% 18px;
+  height: 2px;
+  border-radius: 999px;
   background: linear-gradient(
     90deg,
     transparent,
-    color-mix(in oklab, var(--color-primary) 55%, transparent) 25%,
+    color-mix(in oklab, var(--color-primary) 48%, transparent) 22%,
     var(--color-glow) 50%,
-    color-mix(in oklab, var(--color-accent) 55%, transparent) 75%,
+    color-mix(in oklab, var(--color-accent) 48%, transparent) 78%,
     transparent
   );
-  opacity: 0.75;
+  opacity: 0.54;
+  filter: drop-shadow(0 0 8px color-mix(in oklab, var(--color-glow) 65%, transparent));
+  transition: inset 560ms var(--motion-ease), opacity 360ms ease, height 360ms ease;
+}
+.glass-edge::after {
+  content: "";
+  position: absolute;
+  inset: auto 20% 0;
+  height: 26px;
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--color-primary) 18%, transparent);
+  filter: blur(28px);
+  opacity: 0;
+  transition: opacity 500ms ease;
 }
 .glass-edge[data-shown] {
   visibility: visible;
   opacity: 1;
   transform: translate3d(0, 0, 0);
-  transition: opacity 420ms var(--motion-ease), transform 480ms var(--motion-ease);
+  transition: opacity 360ms var(--motion-ease), transform 620ms var(--motion-ease), height 520ms var(--motion-ease);
+}
+.glass-edge[data-moving]::before {
+  inset-inline: 15%;
+  opacity: 0.82;
+}
+.glass-edge[data-holding] {
+  height: 112px;
+  background: linear-gradient(
+    to top,
+    color-mix(in oklab, var(--color-background) 86%, transparent),
+    color-mix(in oklab, var(--color-background) 48%, transparent) 62%,
+    transparent
+  );
+  backdrop-filter: blur(22px) saturate(175%);
+}
+.glass-edge[data-holding]::before {
+  inset-inline: 22%;
+  height: 3px;
+  opacity: 1;
+}
+.glass-edge[data-holding]::after {
+  opacity: 0.8;
+}
+.glass-edge[data-releasing] {
+  height: 82px;
+  opacity: 0.78;
 }
 @media (max-width: 768px) {
   .glass-edge {
+    height: 64px;
+    backdrop-filter: blur(10px) saturate(140%);
+  }
+  .glass-edge[data-holding] {
+    height: 72px;
+    backdrop-filter: blur(12px) saturate(150%);
+  }
+  .glass-edge[data-releasing] {
     height: 58px;
-    backdrop-filter: blur(9px) saturate(135%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .glass-edge,
+  .glass-edge::before,
+  .glass-edge::after {
+    transition-duration: 1ms !important;
   }
 }
 
