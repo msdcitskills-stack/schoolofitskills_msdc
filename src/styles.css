@@ -138,6 +138,52 @@
   .tap-feedback-layer { display: none; }
 }
 
+/* A small, theme-aware cursor accent for desktop pointers only. */
+.custom-cursor {
+  position: fixed;
+  z-index: 12000;
+  top: 0;
+  left: 0;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) translate(-50%, -50%);
+  transition: opacity 180ms ease;
+  will-change: transform;
+}
+.custom-cursor[data-visible] { opacity: 1; }
+.custom-cursor-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid color-mix(in oklab, var(--color-primary) 78%, var(--color-foreground));
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--color-primary) 9%, transparent);
+  box-shadow: 0 0 18px color-mix(in oklab, var(--color-glow) 28%, transparent);
+  transition: transform 240ms var(--motion-ease), background-color 240ms ease, border-color 240ms ease;
+}
+.custom-cursor-core {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  box-shadow: 0 0 10px color-mix(in oklab, var(--color-glow) 75%, transparent);
+  transition: transform 240ms var(--motion-ease), opacity 180ms ease;
+}
+.custom-cursor[data-hover] .custom-cursor-ring {
+  transform: scale(1.45);
+  background: color-mix(in oklab, var(--color-primary) 16%, transparent);
+  border-color: var(--color-primary);
+}
+.custom-cursor[data-hover] .custom-cursor-core { transform: scale(0.55); opacity: 0.65; }
+html[data-custom-cursor] body,
+html[data-custom-cursor] body * { cursor: none !important; }
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .custom-cursor { display: none; }
+}
+
 /* Theme: Midnight indigo */
 .theme-midnight {
   --background: oklch(0.14 0.03 265);

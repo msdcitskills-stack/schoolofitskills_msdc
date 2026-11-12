@@ -21,6 +21,7 @@ import { TracingBeam } from "../components/tracing-beam";
 import { GlassEdge } from "../components/glass-edge";
 import { MotionManager } from "../components/motion-manager";
 import { TapFeedback } from "../components/tap-feedback";
+import { CustomCursor } from "../components/custom-cursor";
 
 
 function NotFoundComponent() {
@@ -136,6 +137,7 @@ function RootComponent() {
       <ThemeProvider>
         <MotionManager />
         <TapFeedback />
+        <CustomCursor />
         <ScrollProgress />
         <TracingBeam />
         <GlassEdge />

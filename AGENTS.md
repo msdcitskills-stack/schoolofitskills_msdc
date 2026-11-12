@@ -16,4 +16,5 @@
 - Keep native wheel and touch scrolling; the shared motion manager pauses offscreen decorations and paint-heavy effects during scrolling to preserve the frame budget.
 - Keep pathway card decoration CSS-only and registered with the shared motion manager so card interactions do not add scrolling listeners or animation loops.
 - Keep tap feedback in one noninteractive root overlay with bounded, short-lived layers and the shared scroll ticker, so existing control geometry and native touch scrolling remain unchanged.
+- Keep the custom cursor isolated as a noninteractive root overlay, update its position with requestAnimationFrame, and enable it only for fine pointers without reduced motion.
 - Scroll feel: the magnetic section hold is CSS scroll-snap proximity, enabled only for fine pointers by the motion manager, and the bottom glass edge is a non-interactive fixed overlay driven by the shared scroll ticker — never hijack wheel or touch scrolling with JavaScript.

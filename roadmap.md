@@ -1,4 +1,5 @@
 # Motion refinement
+- [x] Add a theme-aware desktop custom cursor with clickable-target feedback and touch/reduced-motion fallbacks.
 - [x] Reduce background animation work outside the viewport and while scrolling.
 - [x] Refine card, button, and reveal feedback without changing page layout.
 - [x] Verify browsing, theme selection, motion preferences, and page errors.
