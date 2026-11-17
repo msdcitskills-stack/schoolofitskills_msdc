@@ -1323,3 +1323,79 @@ html.magnet-scroll main > div > section {
 @media (pointer: coarse), (prefers-reduced-motion: reduce) {
   html.magnet-scroll { scroll-snap-type: none; }
 }
+
+/* Site-wide isometric lattice with one subtle, pointer-reactive floating cube. */
+.site-content-layer {
+  position: relative;
+  z-index: 1;
+}
+.site-cube-backdrop {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-image:
+    linear-gradient(30deg, transparent 49.55%, color-mix(in oklab, var(--color-foreground) 8%, transparent) 49.8%, color-mix(in oklab, var(--color-foreground) 8%, transparent) 50.2%, transparent 50.45%),
+    linear-gradient(150deg, transparent 49.55%, color-mix(in oklab, var(--color-foreground) 8%, transparent) 49.8%, color-mix(in oklab, var(--color-foreground) 8%, transparent) 50.2%, transparent 50.45%);
+  background-size: 180px 104px;
+  background-position: center center;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 86%, transparent 100%);
+}
+.site-cube-stage {
+  position: absolute;
+  top: 43%;
+  right: clamp(2.25rem, 8vw, 8rem);
+  display: grid;
+  width: 76px;
+  height: 76px;
+  place-items: center;
+  perspective: 520px;
+}
+.site-cube-core {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  transform-style: preserve-3d;
+  transform: rotateX(-27deg) rotateY(38deg) translateY(0);
+  animation: site-cube-float 6.5s ease-in-out infinite;
+  transition: transform 700ms var(--motion-ease), filter 700ms var(--motion-ease);
+}
+.site-cube-face {
+  position: absolute;
+  inset: 0;
+  border: 1px solid color-mix(in oklab, var(--color-primary) 52%, var(--color-foreground));
+  background: color-mix(in oklab, var(--color-primary) 7%, var(--color-background));
+  box-shadow: inset 0 0 20px color-mix(in oklab, var(--color-primary) 9%, transparent), 0 0 14px color-mix(in oklab, var(--color-primary) 8%, transparent);
+  backface-visibility: visible;
+}
+.site-cube-front { transform: translateZ(29px); }
+.site-cube-back { transform: rotateY(180deg) translateZ(29px); }
+.site-cube-right { transform: rotateY(90deg) translateZ(29px); }
+.site-cube-left { transform: rotateY(-90deg) translateZ(29px); }
+.site-cube-top { transform: rotateX(90deg) translateZ(29px); }
+.site-cube-bottom { transform: rotateX(-90deg) translateZ(29px); }
+.site-cube-stage[data-hovered] .site-cube-core {
+  transform: rotateX(calc(-27deg + var(--cube-tilt-x, 0deg))) rotateY(calc(38deg + var(--cube-tilt-y, 0deg))) translateY(-24px) scale(1.14);
+  filter: drop-shadow(0 22px 22px color-mix(in oklab, var(--color-primary) 24%, transparent));
+}
+.site-cube-stage[data-hovered] .site-cube-face {
+  border-color: color-mix(in oklab, var(--color-primary) 76%, var(--color-foreground));
+  background: color-mix(in oklab, var(--color-primary) 13%, var(--color-background));
+}
+@keyframes site-cube-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+.site-cube-core[data-motion-paused],
+html[data-scrolling] .site-cube-core,
+html[data-motion-hidden] .site-cube-core {
+  animation-play-state: paused;
+}
+@media (max-width: 768px) {
+  .site-cube-backdrop { background-size: 140px 81px; opacity: 0.72; }
+  .site-cube-stage { top: 34%; right: 8%; transform: scale(0.76); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-cube-core { animation: none; transition: none; }
+}

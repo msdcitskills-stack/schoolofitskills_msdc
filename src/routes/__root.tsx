@@ -22,6 +22,7 @@ import { GlassEdge } from "../components/glass-edge";
 import { MotionManager } from "../components/motion-manager";
 import { TapFeedback } from "../components/tap-feedback";
 import { CustomCursor } from "../components/custom-cursor";
+import { BackgroundCubesGrid } from "../components/background-cubes-grid";
 
 
 function NotFoundComponent() {
@@ -135,6 +136,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
+        <BackgroundCubesGrid />
         <MotionManager />
         <TapFeedback />
         <CustomCursor />
@@ -143,10 +145,12 @@ function RootComponent() {
         <GlassEdge />
 
         <FloatingNav />
-        <main className="pt-24">
+        <main className="site-content-layer pt-24">
           <Outlet />
         </main>
-        <SiteFooter />
+        <div className="site-content-layer">
+          <SiteFooter />
+        </div>
         <FloatingDock />
       </ThemeProvider>
     </QueryClientProvider>
