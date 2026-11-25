@@ -54,7 +54,7 @@ function Home() {
                 MANIPAL SKILL DEVELOPMENT CENTRE
               </div>
               <h1 className="mt-5 text-balance text-7xl">
-                Empowering future generations with{" "}
+                Empowering <em className="font-medium">future</em> generations with{" "}
                 <span className="relative inline-block">
                   <span className="relative z-10">cutting-edge</span>
                   <span
@@ -81,9 +81,10 @@ function Home() {
                 </Link>
                 <Link
                   to="/contact"
-                  className="story-link text-sm font-semibold text-foreground"
+                  className="story-link group inline-flex items-center gap-2 text-sm font-semibold text-foreground"
                 >
                   Talk to us
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transition-none" />
                 </Link>
               </div>
 
@@ -193,7 +194,8 @@ function Home() {
           eyebrow="Catalogue"
           title={
             <>
-              Four pathways,{" "}
+              Four pathways{" "}
+              <span aria-hidden="true" className="px-0.5 text-primary">·</span>{" "}
               <PointerHighlight>one campus.</PointerHighlight>
             </>
           }
@@ -344,9 +346,10 @@ function Home() {
               </Link>
               <Link
                 to="/courses"
-                className="story-link text-sm font-semibold text-secondary-foreground"
+                className="story-link group inline-flex items-center gap-2 text-sm font-semibold text-secondary-foreground"
               >
                 Browse the catalogue
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transition-none" />
               </Link>
             </div>
           </div>
